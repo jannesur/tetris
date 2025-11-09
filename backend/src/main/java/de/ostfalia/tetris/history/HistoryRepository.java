@@ -1,5 +1,7 @@
 package de.ostfalia.tetris.history;
 
-public class HistoryRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface HistoryRepository extends JpaRepository<History, Long> {
     
 }
