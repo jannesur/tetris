@@ -41,10 +41,9 @@ public class PlayerController {
 		return this.playerService.createPlayer(player);
 	}
 
-	@PutMapping("/{id}")
-	public Player updatePlayer(@PathVariable Long id, @RequestBody Player player) {
-		return this.playerService.updatePlayer(id, player);
-	}
+    //Patch für Player updaten
+	//@PatchMapping("/{id}")
+	
 
 	@DeleteMapping("/{id}")
 	public void deletePlayer(@PathVariable Long id) { 
