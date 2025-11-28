@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:controller="org.example.tetrisprototyp.Menu.MainMenuController"
+      alignment="CENTER"
+      spacing="25.0"
+      style="-fx-background-color: linear-gradient(to bottom, #1a1a2e, #16213e);"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+
+    <padding>
+        <Insets top="60" right="40" bottom="60" left="40"/>
+    </padding>
+
+    <!-- Titel -->
+    <Label text="TETRIS"
+           textFill="white"
+           style="-fx-font-size: 72px; -fx-font-weight: bold;">
+        <font>
+            <Font name="System Bold" size="72"/>
+        </font>
+        <effect>
+            <DropShadow color="#00ffff" radius="10" spread="0.2"/>
+        </effect>
+    </Label>
+
+
+
+    <!-- Abstand -->
+    <VBox spacing="20" alignment="CENTER">
+
+        <!-- Spiel starten -->
+        <Button fx:id="startButton"
+                text="Spiel starten"
+                onAction="#startGame"
+                prefWidth="280"
+                prefHeight="60"
+                styleClass="menu-button"
+                style="-fx-background-color: #00ff88; -fx-text-fill: black; -fx-font-size: 18px; -fx-font-weight: bold;">
+            <effect>
+                <DropShadow color="#00000080" radius="10" offsetY="5"/>
+            </effect>
+        </Button>
+
+        <!-- Historie ansehen -->
+        <Button fx:id="historyButton"
+                text="Historie ansehen"
+                onAction="#showHistory"
+                prefWidth="280"
+                prefHeight="60"
+                styleClass="menu-button"
+                style="-fx-background-color: #00d0ff; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;">
+            <effect>
+                <DropShadow color="#00000080" radius="10" offsetY="5"/>
+            </effect>
+        </Button>
+
+        <!-- Beenden -->
+        <Button fx:id="exitButton"
+                text="Beenden"
+                onAction="#exitGame"
+                prefWidth="280"
+                prefHeight="60"
+                styleClass="menu-button"
+                style="-fx-background-color: #ff3b30; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;">
+            <effect>
+                <DropShadow color="#00000080" radius="10" offsetY="5"/>
+            </effect>
+        </Button>
+    </VBox>
+
+    <!-- Footer -->
+    <Label text="© 2025 Janne Melina Surborg und Konstantin Königshofen – HAW Ostfalia"
+           textFill="#444466"
+           style="-fx-font-size: 12px;"/>
+</VBox>
