@@ -25,8 +25,9 @@ public class MainMenuController {
         //startButton.setDisable(true);
         //exitButton.setDisable(true);
 
-        GameEngineStarter gameEngineStarter = new GameEngineStarter();
-        gameEngineStarter.startGame(event);
+        //GameEngineStarter gameEngineStarter = new GameEngineStarter();
+        //gameEngineStarter.startGame(event);
+        ControllerUtils.loadView(event, "GameView.fxml", "TETRIS - Historie");
     }
 
     // ================================================================
@@ -42,11 +43,9 @@ public class MainMenuController {
     // 3. Beenden → Programm komplett schließen
     // ================================================================
     @FXML
-    private void exitGame(ActionEvent event) {
+    private void exitApplication(ActionEvent event) {
         System.out.println("Spiel wird beendet. Tschüss!");
-
-        // Eleganter Exit: Alle Stages schließen
-        Stage stage = getCurrentStage(event);
+        Stage stage = ControllerUtils.getCurrentStage(event);
         stage.close();
 
         // Falls du mehrere Stages hast oder sicher gehen willst:
@@ -58,10 +57,6 @@ public class MainMenuController {
     // Hilfsmethoden
     // ================================================================
 
-    /** Holt den aktuellen Stage aus einem Event (funktioniert bei allen Nodes) */
-    private Stage getCurrentStage(ActionEvent event) {
-        return (Stage) ((Node) event.getSource()).getScene().getWindow();
-    }
 
     /** Alle Menü-Buttons temporär deaktivieren (z. B. während Spiel lädt) */
     private void setButtonsDisabled(boolean disabled) {

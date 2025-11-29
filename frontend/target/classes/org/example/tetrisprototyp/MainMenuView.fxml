@@ -63,7 +63,7 @@
         <!-- Beenden -->
         <Button fx:id="exitButton"
                 text="Beenden"
-                onAction="#exitGame"
+                onAction="#exitApplication"
                 prefWidth="280"
                 prefHeight="60"
                 styleClass="menu-button"

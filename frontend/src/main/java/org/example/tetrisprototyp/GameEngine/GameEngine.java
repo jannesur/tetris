@@ -38,8 +38,9 @@ public class GameEngine {
 
 
 
-    public GameEngine() {
-        this.canvas = new Canvas(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);;
+    public GameEngine(Canvas canvas) {
+        //this.canvas = new Canvas(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.polyominoFactory = new TetrominoFactory();
         this.currentPolyomino = spawnPolyomino();
@@ -186,11 +187,12 @@ public class GameEngine {
                 copy.addBlock(cloned);
             }
         }
-
-
  */
         return copy;
     }
+
+
+
 
     private void checkFullRows() {
         // Alle Reihen (y) von unten nach oben prüfen
@@ -207,6 +209,7 @@ public class GameEngine {
                 System.out.println("Reihe voll");
                 // Alle Blöcke der Reihe aus settledBlocks löschen
                 settledBlocks.removeIf(b -> b.getY() == row);
+
 
                 // Alle Blöcke über dieser Zeile eine Reihe nach unten verschieben
                 for (Block b : settledBlocks) {

@@ -30,7 +30,7 @@
     </Label>
 
 
-    <!-- Die zwei großen Hauptbuttons -->
+    <!-- Buttons -->
     <VBox spacing="25" alignment="CENTER">
 
         <!-- LOGIN BUTTON -->

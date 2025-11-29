@@ -25,7 +25,6 @@ public class LoginController {
 
         if ("123".equals(user) && "123".equals(pass)) {
             errorLabel.setVisible(false);
-            //loadView(event, "MainMenuView.fxml", "TETRIS - MainMenu");
             ControllerUtils.loadView(event, "MainMenuView.fxml", "TETRIS - MainMenu");
         } else {
             showError("Falscher Benutzername oder Passwort!\n(Tipp: Beides ist 123)");
@@ -43,7 +42,6 @@ public class LoginController {
 
     @FXML
     private void goBack(ActionEvent event) {
-        //loadView(event, "WelcomeView.fxml", "TETRIS - Welcome");
         ControllerUtils.loadView(event, "WelcomeView.fxml", "TETRIS - Wilkommen");
     }
 

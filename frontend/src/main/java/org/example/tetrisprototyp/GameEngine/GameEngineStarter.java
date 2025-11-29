@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 // Wird in StartMenuController aufgerufen, wenn "Spiel starten" gedrückt wurde. Erstellt ein GameEngine Objekt, welches
 // die GameLoop und somit das Spiel startet.
 public class GameEngineStarter {
-
+/*
     private final GameEngine engine;
 
     public GameEngineStarter() {
@@ -35,6 +35,9 @@ public class GameEngineStarter {
         stage.show();
 
     }
+
+
+ */
 
 
 }
