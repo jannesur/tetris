@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -19,6 +20,7 @@ public class History {
     private int level;
     private LocalDate historyDate;
     @ManyToOne
+    @JoinColumn(name = "player_id")
     private Player player;
 
     public History() {
@@ -73,10 +75,12 @@ public class History {
         this.player = player;
     }
 
-    @Override
-    public String toString() {
-        return "History [id=" + id + ", score=" + score + ", level=" + level + ", historyDate=" + historyDate
-                + ", player=" + player + "]";
-    }
+@Override
+public String toString() {
+    return "History [id=" + id + ", score=" + score 
+            + ", level=" + level + ", historyDate=" + historyDate + "]";
+}
+
+
 
 }

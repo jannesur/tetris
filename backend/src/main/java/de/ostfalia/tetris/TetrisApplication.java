@@ -11,3 +11,12 @@ public class TetrisApplication {
 	}
 
 }
+
+
+/* 
+{
+  "username": "Max",
+  "registrationDate": "2025-11-14",
+  "histories": []
+}
+  */

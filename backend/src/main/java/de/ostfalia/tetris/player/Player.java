@@ -3,6 +3,8 @@ package de.ostfalia.tetris.player;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import de.ostfalia.tetris.history.History;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -18,19 +20,21 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
-    private String jwt;
+    private String password;
+
+    //private String jwt;
     private LocalDate registrationDate;
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<History> histories;
 
     public Player() {
 
     }
 
-    public Player(Long id, String username, String jwt, LocalDate registrationDate, List<History> histories) {
+    public Player(Long id, String username, LocalDate registrationDate, List<History> histories) {
         this.id = id;
         this.username = username;
-        this.jwt = jwt;
         this.registrationDate = registrationDate;
         this.histories = histories;
     }
@@ -51,6 +55,7 @@ public class Player {
         this.username = username;
     }
 
+    /* 
     public String getJwt() {
         return jwt;
     }
@@ -58,6 +63,7 @@ public class Player {
     public void setJwt(String jwt) {
         this.jwt = jwt;
     }
+    */
 
     public LocalDate getRegistrationDate() {
         return registrationDate;
@@ -75,11 +81,22 @@ public class Player {
         this.histories = histories;
     }
 
-    @Override
-    public String toString() {
-        return "Player [id=" + id + ", username=" + username + ", jwt=" + jwt + ", registrationDate=" + registrationDate
-                + ", histories=" + histories + "]";
-    }
+ @Override
+public String toString() {
+    return "Player [id=" + id + ", username=" + username 
+            + ", registrationDate=" + registrationDate + "]";
+}
+
+ public String getPassword() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+ }
+
+ public void setPassword(String encode) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'setPassword'");
+ }
+
 
 
 }

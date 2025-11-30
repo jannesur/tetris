@@ -39,6 +39,15 @@ public class PlayerController {
 		return this.playerService.createPlayer(player);
 	}
 
+    /* 
+     @PostMapping
+    public Player login(@RequestBody Player player) {
+        Username username = new Username(player.username);
+        Password password = new Password(dto.password);
+        return playerService.loginPlayer(username, password);
+    }
+    */
+
     //Patch für Player updaten
 	//@PatchMapping("/{id}")
 	
