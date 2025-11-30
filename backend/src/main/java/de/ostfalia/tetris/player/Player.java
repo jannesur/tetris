@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.ostfalia.tetris.history.History;
 import jakarta.persistence.CascadeType;
@@ -20,7 +21,10 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+
 
     //private String jwt;
     private LocalDate registrationDate;
@@ -88,14 +92,12 @@ public String toString() {
 }
 
  public String getPassword() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
- }
+        return password;
+    }
 
- public void setPassword(String encode) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setPassword'");
- }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 
 

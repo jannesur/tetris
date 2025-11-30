@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import de.ostfalia.tetris.player.Player;
 import de.ostfalia.tetris.player.PlayerService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/authentification")

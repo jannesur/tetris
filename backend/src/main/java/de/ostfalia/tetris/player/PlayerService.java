@@ -1,5 +1,6 @@
 package de.ostfalia.tetris.player;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,10 +35,11 @@ public class PlayerService {
     }
 
     public Player createPlayer(Player player) {
-        // 🔐 Passwortverschlüsselung sinnvoll ergänzt, aber Rest unverändert
-        player.setPassword(passwordEncoder.encode(player.getPassword()));
-        return this.playerRepository.save(player);
-    }
+    player.setPassword(passwordEncoder.encode(player.getPassword()));
+    player.setRegistrationDate(LocalDate.now());   // <- FEHLTE!
+    return this.playerRepository.save(player);
+}
+
 
     //Patch für Player updaten
     /* 
