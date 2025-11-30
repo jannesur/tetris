@@ -23,15 +23,17 @@ public class HistoryController {
         return this.historyService.getAllHistories();
     }
 
-    @GetMapping("/{id}")
-    public History getHistoryById(@PathVariable Long id) {
-        return this.historyService.getHistoryById(id);
+    @GetMapping("/player/{playerId}")
+    public List<History> getHistoriesByPlayer(@PathVariable Long playerId) {
+    return historyService.getHistoriesForPlayer(playerId);
     }
+
     
 
 	@PostMapping
-	public History createHistory(@RequestBody History history) {
-		return this.historyService.createHistory(history);
-	}
+    public History createHistory(@RequestBody HistoryRequest req) {
+    return historyService.createHistory(req);
+}
+
 	
 }

@@ -34,11 +34,12 @@ public class PlayerService {
         return this.playerRepository.findById(id).get();
     }
 
-    public Player createPlayer(Player player) {
-    player.setPassword(passwordEncoder.encode(player.getPassword()));
-    player.setRegistrationDate(LocalDate.now());   // <- FEHLTE!
-    return this.playerRepository.save(player);
+  public Player createPlayer(Player player) {
+    player.setPassword(passwordEncoder.encode(player.getPassword())); // <-- HIER NullPointer
+    player.setRegistrationDate(LocalDate.now());
+    return playerRepository.save(player);
 }
+
 
 
     //Patch für Player updaten

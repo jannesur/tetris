@@ -1,16 +1,15 @@
 package de.ostfalia.tetris.authentication;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.ostfalia.tetris.player.Player;
 import de.ostfalia.tetris.player.PlayerService;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
-@RequestMapping("/authentification")
+@RequestMapping("/authentication")
 public class AuthenticationController {
 
     private final PlayerService playerService;
