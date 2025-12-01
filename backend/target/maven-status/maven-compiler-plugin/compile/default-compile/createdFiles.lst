@@ -1,0 +1,10 @@
+de/ostfalia/tetris/TetrisApplication.class
+de/ostfalia/tetris/history/HistoryService.class
+de/ostfalia/tetris/history/History.class
+de/ostfalia/tetris/authentication/Authentication.class
+de/ostfalia/tetris/history/HistoryRepository.class
+de/ostfalia/tetris/history/HistoryController.class
+de/ostfalia/tetris/player/PlayerService.class
+de/ostfalia/tetris/player/Player.class
+de/ostfalia/tetris/player/PlayerController.class
+de/ostfalia/tetris/player/PlayerRepository.class

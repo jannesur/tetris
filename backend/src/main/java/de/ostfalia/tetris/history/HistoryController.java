@@ -1,6 +1,8 @@
 package de.ostfalia.tetris.history;
 
 import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/history")
+@CrossOrigin(origins = "http://localhost:5173")
 public class HistoryController {
 
     private final HistoryService historyService;
@@ -23,15 +26,17 @@ public class HistoryController {
         return this.historyService.getAllHistories();
     }
 
-    @GetMapping("/{id}")
-    public History getHistoryById(@PathVariable Long id) {
-        return this.historyService.getHistoryById(id);
+    @GetMapping("/player/{playerId}")
+    public List<History> getHistoriesByPlayer(@PathVariable Long playerId) {
+    return historyService.getHistoriesForPlayer(playerId);
     }
+
     
 
 	@PostMapping
-	public History createHistory(@RequestBody History history) {
-		return this.historyService.createHistory(history);
-	}
+    public History createHistory(@RequestBody HistoryRequest req) {
+    return historyService.createHistory(req);
+}
+
 	
 }
