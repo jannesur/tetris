@@ -15,7 +15,6 @@ import javax.crypto.SecretKey;
 @Service
 public class JwtService {
 
-    // Sicherer Schlüssel (automatisch 256-bit)
     private final SecretKey SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String generateToken(String username) {

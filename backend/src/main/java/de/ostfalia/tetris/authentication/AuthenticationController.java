@@ -1,5 +1,6 @@
 package de.ostfalia.tetris.authentication;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import de.ostfalia.tetris.player.PlayerService;
 
 @RestController
 @RequestMapping("/authentication")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthenticationController {
 
     private final PlayerService playerService;

@@ -34,7 +34,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        // Diese Endpunkte dürfen NIEMALS gefiltert werden
         if (path.startsWith("/authentication")
                 || path.startsWith("/player")
                 || path.startsWith("/swagger")
