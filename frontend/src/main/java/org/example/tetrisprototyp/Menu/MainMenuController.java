@@ -27,7 +27,8 @@ public class MainMenuController {
 
         //GameEngineStarter gameEngineStarter = new GameEngineStarter();
         //gameEngineStarter.startGame(event);
-        ControllerUtils.loadView(event, "GameView.fxml", "TETRIS - Historie");
+        //ControllerUtils.loadView(event, "GameView.fxml", "TETRIS - Historie");
+        ControllerUtils.loadView(event, "DifficultyView.fxml", "Tetris");
     }
 
     // ================================================================

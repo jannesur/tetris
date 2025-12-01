@@ -13,7 +13,7 @@ import java.util.List;
 
 
 // Game Engine als Observable, welches die zwei Observer Soundmanager und HistoryManager informiert
-public class GameEngine {
+public class GameEngine implements Observable {
 
     private static final int TILE_SIZE = 30;
     private static final int WIDTH = 10;
@@ -27,25 +27,36 @@ public class GameEngine {
     private CollisionManager collisionManager;
     private BoardRenderer boardRenderer;
 
+    private int difficulty;
 
-    // Zeitsteuerung
+
+    // Zeitsteuerung & Geschwindigkeitsregulierung
     private long lastUpdate = 0;
-    private double speed = 0.35; // Sekunden pro Schritt
+    double[] speedValues = {
+            0.45, 0.40, 0.32, 0.25,
+            0.18, 0.13, 0.10, 0.08, 0.06
+    };
+    private double speed = speedValues[0]; // Sekunden pro Schritt
+    private int linesScored = 0; // Wird bei der Geschwindigkeitserhöhung verwendet
+    private int level = 1; // Wird bei der Geschwindigkeitserhöhung verwendet
 
     // Gesetzte Blöcke
     private List<Block> settledBlocks = new ArrayList<>();
 
+    private final List<Observer> observers = new ArrayList<>();
 
 
 
-    public GameEngine(Canvas canvas) {
+
+    public GameEngine(Canvas canvas, int difficulty) {
         //this.canvas = new Canvas(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.polyominoFactory = new TetrominoFactory();
-        this.currentPolyomino = spawnPolyomino();
         this.collisionManager = new CollisionManager(WIDTH, HEIGHT);
         this.boardRenderer = new BoardRenderer(gc, TILE_SIZE, WIDTH, HEIGHT);
+        this.difficulty = difficulty;
+        this.currentPolyomino = spawnPolyomino();
     }
 
     public Canvas getCanvas() {
@@ -59,6 +70,17 @@ public class GameEngine {
 
 
     public void startGameLoop() {
+
+        System.out.println("Das Spiel wird in Schwierigkeit " + difficulty + " gestartet");
+
+        // Erstellung der Observer
+        Observer soundManager = new SoundManager();
+        Observer hSaver = new HistorySaver();
+        addObserver(soundManager);
+        addObserver(hSaver);
+
+
+        // Erstellung der gameLoop
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -87,12 +109,16 @@ public class GameEngine {
         if (gameLoop != null) {
             gameLoop.stop();
         }
+
+        notifyObservers("gameOver");
+
     }
 
 
     private void update() {
 
         if (currentPolyomino != null) {
+
             // Prüft, ob der Block unten angekommen ist
             //System.out.println(currentTetromino.toString());
             if (collisionManager.canMove(currentPolyomino, 0, 1, settledBlocks)) {
@@ -115,7 +141,18 @@ public class GameEngine {
 
     private Polyomino spawnPolyomino() {
 
-        return polyominoFactory.createRandomPolyomino();
+        Polyomino newPoly = polyominoFactory.createRandomPolyomino();
+
+
+        // Prüfen, ob das neue Polyomino sofort kollidiert
+        if (!collisionManager.canMove(newPoly, 0, 0, settledBlocks)) {
+            // Board voll → Spiel beenden
+            stopGameLoop(); // AnimationTimer stoppen
+            return null;
+        }
+
+
+        return newPoly;
 
     }
 
@@ -220,9 +257,44 @@ public class GameEngine {
 
                 // Da wir die Zeilen verschoben haben, muss die neue untere Zeile nochmal überprüft werden
                 y++;
+
+
+                // Observer informieren
+                String eventScored = "scored";
+                notifyObservers(eventScored);
+
+                //Alle 5 Reihen erhöht sich das Level und damit die Geschwindigkeit
+                linesScored++;
+                if (linesScored % 5 == 0) {
+                    level++;
+                    speed = speedValues[level];
+                    System.out.println(level);
+                }
             }
         }
     }
+
+
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(String event) {
+        for (Observer obs : observers) {
+            obs.update(event);
+        }
+    }
+
+
+
 
 
 }

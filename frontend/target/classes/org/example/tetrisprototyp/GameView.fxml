@@ -48,25 +48,67 @@
 
             <!-- Rechte Info-Leiste -->
             <VBox spacing="25" alignment="CENTER">
-                <VBox spacing="10">
-                    <Label text="Score"/>
-                    <Label fx:id="scoreLabel" text="0"
-                           textFill="white"
-                           style="-fx-font-size: 48px; -fx-font-weight: bold;"/>
+
+                <!-- SCORE -->
+                <VBox spacing="10" alignment="CENTER">
+                    <Label text="Score"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 24px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="8"/>
+                        </effect>
+                    </Label>
+
+                    <Label fx:id="scoreLabel"
+                           text="000000"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 48px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="12"/>
+                        </effect>
+                    </Label>
                 </VBox>
 
-                <VBox spacing="10">
-                    <Label text="Level" textFill="#8888ff"/>
-                    <Label fx:id="levelLabel" text="1"
-                           textFill="white"
-                           style="-fx-font-size: 32px;"/>
+
+                <!-- LEVEL-->
+                <VBox spacing="10" alignment="CENTER">
+                    <Label text="Level"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 24px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="8"/>
+                        </effect>
+                    </Label>
+
+                    <Label fx:id="levelLabel"
+                           text="1"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 48px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="12"/>
+                        </effect>
+                    </Label>
                 </VBox>
 
-                <VBox spacing="10">
-                    <Label text="Lines" textFill="#8888ff"/>
-                    <Label fx:id="linesLabel" text="0"
-                           textFill="white"
-                           style="-fx-font-size: 32px;"/>
+
+                <!-- LINES -->
+                <VBox spacing="10" alignment="CENTER">
+                    <Label text="Lines"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 24px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="8"/>
+                        </effect>
+                    </Label>
+
+                    <Label fx:id="linesLabel"
+                           text="0"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 48px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="12"/>
+                        </effect>
+                    </Label>
                 </VBox>
 
                 <Button fx:id="exitButton"

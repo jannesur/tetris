@@ -17,6 +17,8 @@ public class Tetromino extends Polyomino {
             case "T" -> createT();
             case "L" -> createL();
             case "S" -> createS();
+            case "LR" -> createLReversed();
+            case "SR" -> createSReversed();
             default -> throw new IllegalArgumentException("Unbekannter Tetromino-Typ: " + getType());
         }
     }
@@ -53,12 +55,29 @@ public class Tetromino extends Polyomino {
         setPivot(getBlocks().get(2));
     }
 
+
+    private void createLReversed() { // Umgedrehtes-L
+        addBlock(new Block(5, 0, Color.ORANGE));
+        addBlock(new Block(3, 1, Color.ORANGE));
+        addBlock(new Block(4, 1, Color.ORANGE));
+        addBlock(new Block(5, 1, Color.ORANGE));
+        setPivot(getBlocks().get(3));
+    }
+
     private void createS() {
         addBlock(new Block(4, 0, Color.GREEN));
         addBlock(new Block(5, 0, Color.GREEN));
         addBlock(new Block(3, 1, Color.GREEN));
         addBlock(new Block(4, 1, Color.GREEN));
         setPivot(getBlocks().get(3));
+    }
+
+    private void createSReversed() { // Umgedrehtes-S
+        addBlock(new Block(3, 0, Color.GREEN));
+        addBlock(new Block(4, 0, Color.GREEN));
+        addBlock(new Block(4, 1, Color.GREEN));
+        addBlock(new Block(5, 1, Color.GREEN));
+        setPivot(getBlocks().get(2));
     }
     /*
     private final int blockCount = 4;

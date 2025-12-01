@@ -23,3 +23,24 @@
     -fx-scale-x: 0.98;
     -fx-scale-y: 0.98;
 }
+
+
+/* Tick Labels des Sliders */
+.difficulty-slider .track .tick-label {
+    -fx-font-size: 18px;       /* Größer machen */
+    -fx-font-weight: bold;     /* Fett */
+    -fx-text-fill: #00ffff;    /* Neon-Blau */
+    -fx-effect: dropshadow(gaussian, #00ffff, 4, 0.5, 0, 0); /* Glow */
+}
+
+/* Optional: Thumb & Track für Neon-Stil */
+.difficulty-slider .thumb {
+    -fx-background-color: #00ffff;
+    -fx-background-radius: 10px;
+}
+
+.difficulty-slider .track {
+    -fx-background-color: linear-gradient(to right, #004466, #00ffff);
+    -fx-background-radius: 5px;
+}
+

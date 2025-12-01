@@ -13,8 +13,17 @@ public class TetrominoFactory implements PolyominoFactory {
 
     @Override
     public Polyomino createRandomPolyomino() {
-        String[] types = {"I", "O", "T", "L", "S"};
-        return createSpecificPolyomino(types[random.nextInt(types.length)]);
+        String[] types = {"I", "O", "T", "L", "S", "LR", "SR"};
+        String type = types[random.nextInt(types.length)];
+
+        // Für L und S zufällig die Reversed-Variante wählen
+        if (type.equals("L") && random.nextBoolean()) {
+            type = "LR"; // L-Reversed
+        } else if (type.equals("S") && random.nextBoolean()) {
+            type = "SR"; // S-Reversed
+        }
+
+        return createSpecificPolyomino(type);
     }
 
     @Override
