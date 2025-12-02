@@ -16,6 +16,11 @@ public class WelcomeController {
         ControllerUtils.loadView(event, "RegisterView.fxml", "TETRIS - Register");
     }
 
+    @FXML
+    private void exitApplication() {
+        System.exit(0);
+    }
+
 
 
 

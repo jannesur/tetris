@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ListView?>
 <VBox fx:controller="org.example.tetrisprototyp.Menu.HistoryController"
       alignment="CENTER"
       spacing="30.0"
@@ -29,12 +30,15 @@
         </effect>
     </Label>
 
-    <!-- Platzhalter für spätere Einträge (z. B. ListView) -->
-    <Label text="Hier kommen bald deine Highscores und abgeschlossenen Spiele rein!"
-           textFill="#aaaaaa"
-           style="-fx-font-size: 18px;"
-           wrapText="true"
-           maxWidth="500"/>
+
+    <!-- LISTVIEW FÜR HISTORIE -->
+    <ListView fx:id="historyList"
+              prefWidth="500"
+              prefHeight="400"
+              style="-fx-background-color: #0f0f1f; -fx-control-inner-background: #0f0f1f;
+                     -fx-background-radius: 10; -fx-border-radius: 10;
+                     -fx-border-color: #00ffff; -fx-border-width: 2;
+                     -fx-text-fill: white;" />
 
     <!-- Zurück-Button -->
     <Button fx:id="backButton"

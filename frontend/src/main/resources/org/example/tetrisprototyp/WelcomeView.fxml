@@ -63,6 +63,21 @@
             </effect>
         </Button>
 
+        <!-- EXIT BUTTON -->
+        <Button fx:id="exitButton"
+                text="Beenden"
+                onAction="#exitApplication"
+                prefWidth="360"
+                prefHeight="80"
+                styleClass="menu-button"
+                style="-fx-background-color: #ff3b30; -fx-text-fill: white;
+               -fx-font-size: 24px; -fx-font-weight: bold;
+               -fx-background-radius: 16; -fx-cursor: hand;">
+            <effect>
+                <DropShadow color="#00000090" radius="15" offsetY="8"/>
+            </effect>
+        </Button>
+
     </VBox>
 
     <!-- Footer -->

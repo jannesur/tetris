@@ -13,6 +13,7 @@ public class MainMenuController {
     // Die drei Buttons aus der FXML (fx:id müssen exakt übereinstimmen!)
     @FXML private Button startButton;
     @FXML private Button historyButton;
+    @FXML private Button logoutButton;
     @FXML private Button exitButton;
 
     // ================================================================
@@ -44,14 +45,21 @@ public class MainMenuController {
     // 3. Beenden → Programm komplett schließen
     // ================================================================
     @FXML
-    private void exitApplication(ActionEvent event) {
-        System.out.println("Spiel wird beendet. Tschüss!");
-        Stage stage = ControllerUtils.getCurrentStage(event);
-        stage.close();
+    private void logout(ActionEvent event) {
+        System.out.println("Nutzer wird ausgeloggt");
+
+        // Hier Logik für Logout
+
+        ControllerUtils.loadView(event, "WelcomeView.fxml", "Tetris");
 
         // Falls du mehrere Stages hast oder sicher gehen willst:
         // Platform.exit();
         // System.exit(0);
+    }
+
+    @FXML
+    private void exitApplication() {
+        System.exit(0);
     }
 
     // ================================================================
@@ -63,6 +71,7 @@ public class MainMenuController {
     private void setButtonsDisabled(boolean disabled) {
         startButton.setDisable(disabled);
         historyButton.setDisable(disabled);
+        logoutButton.setDisable(disabled);
         exitButton.setDisable(disabled);
     }
 

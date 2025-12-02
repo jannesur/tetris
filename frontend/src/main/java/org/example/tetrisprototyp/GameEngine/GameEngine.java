@@ -5,11 +5,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import org.example.tetrisprototyp.Composite.Block;
 import org.example.tetrisprototyp.Composite.Polyomino;
-import org.example.tetrisprototyp.Factory.PolyominoFactory;
-import org.example.tetrisprototyp.Factory.TetrominoFactory;
+import org.example.tetrisprototyp.Factory.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 // Game Engine als Observable, welches die zwei Observer Soundmanager und HistoryManager informiert
@@ -18,6 +18,7 @@ public class GameEngine implements Observable {
     private static final int TILE_SIZE = 30;
     private static final int WIDTH = 10;
     private static final int HEIGHT = 20;
+    private final Random random = new Random();
 
     private final Canvas canvas;
     private final GraphicsContext gc;
@@ -52,7 +53,7 @@ public class GameEngine implements Observable {
         //this.canvas = new Canvas(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
-        this.polyominoFactory = new TetrominoFactory();
+        //this.polyominoFactory = new TetrominoFactory();
         this.collisionManager = new CollisionManager(WIDTH, HEIGHT);
         this.boardRenderer = new BoardRenderer(gc, TILE_SIZE, WIDTH, HEIGHT);
         this.difficulty = difficulty;
@@ -72,6 +73,7 @@ public class GameEngine implements Observable {
     public void startGameLoop() {
 
         System.out.println("Das Spiel wird in Schwierigkeit " + difficulty + " gestartet");
+
 
         // Erstellung der Observer
         Observer soundManager = new SoundManager();
@@ -140,6 +142,22 @@ public class GameEngine implements Observable {
     }
 
     private Polyomino spawnPolyomino() {
+
+        if (difficulty == 1) {
+            // Wenn "Leicht" ausgewählt wurde, so werden nur Tetrominos gespawnt.
+            // Deshalb wird die Factory vor dem Start der Gameloop einmal initialisiert.
+            this.polyominoFactory = new TetrominoFactory();
+        } else {
+            // Bei Schwierigkeitsgrad 2 und 3 wird zwischen den unterschiedlichen Polyomino-Factories gewechselt.
+            List<PolyominoFactory> factories = List.of(
+                    new DominoFactory(),
+                    new TrominoFactory(),
+                    new TetrominoFactory(),
+                    new PentominoFactory()
+            );
+            // Zufällige Factory auswählen
+            this.polyominoFactory = factories.get(random.nextInt(factories.size()));
+        }
 
         Polyomino newPoly = polyominoFactory.createRandomPolyomino();
 
@@ -263,13 +281,24 @@ public class GameEngine implements Observable {
                 String eventScored = "scored";
                 notifyObservers(eventScored);
 
-                //Alle 5 Reihen erhöht sich das Level und damit die Geschwindigkeit
-                linesScored++;
-                if (linesScored % 5 == 0) {
-                    level++;
-                    speed = speedValues[level];
-                    System.out.println(level);
+                // Alle 5 Reihen erhöht sich das Level und damit die Geschwindigkeit (bei Schwierigkeit 1&2).
+                // Alle 3 Reihen bei Schwierigkeit 3.
+                if (difficulty == 3){
+                    linesScored++;
+                    if (linesScored % 3 == 0) {
+                        level++;
+                        speed = speedValues[level];
+                        System.out.println(level);
+                    }
+                } else {
+                    linesScored++;
+                    if (linesScored % 5 == 0) {
+                        level++;
+                        speed = speedValues[level];
+                        System.out.println(level);
+                    }
                 }
+
             }
         }
     }

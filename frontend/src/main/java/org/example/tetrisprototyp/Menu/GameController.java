@@ -62,9 +62,17 @@ public class GameController implements Observer {
             System.out.println("Punkte erzielt!");
 
             score += 100;
-            linesScored++;
-            if (linesScored % 5 == 0) {
-                level++;
+
+            if (Settings.getDifficulty() == 3){
+                linesScored++;
+                if (linesScored % 3 == 0) {
+                    level++;;
+                }
+            } else {
+                linesScored++;
+                if (linesScored % 5 == 0) {
+                    level++;;
+                }
             }
 
             scoreLabel.setText(String.format("%06d", score));

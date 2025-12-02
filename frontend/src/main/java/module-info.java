@@ -6,9 +6,6 @@ module org.example.tetrisprototyp {
     requires jdk.compiler;
     //requires org.example.tetrisprototyp;
     //requires org.example.tetrisprototyp;
-    //requires org.example.tetrisprototyp;
-
-
 
 
     opens org.example.tetrisprototyp to javafx.fxml;

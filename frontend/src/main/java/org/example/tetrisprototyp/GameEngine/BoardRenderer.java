@@ -37,7 +37,7 @@ public class BoardRenderer {
         // ...
 
         // 2. Subtile Grid-Linien
-        gc.setStroke(TetrisColors.GRID);
+        gc.setStroke(Color.web("#ffffff0a"));
         gc.setLineWidth(1);
         for (int x = 0; x <= width; x++) {
             gc.strokeLine(x * tileSize, 0, x * tileSize, h);
