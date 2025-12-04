@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.effect.Glow?>
+
+<BorderPane fx:id="gameRoot"
+            fx:controller="org.example.tetrisprototyp.Menu.GameController"
+            style="-fx-background-color: #0a001f;"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+
+    <!-- Oben: Titel -->
+    <top>
+        <Label text="TETRIS"
+               textFill="#00ffff"
+               style="-fx-font-size: 64px; -fx-font-weight: bold;"
+               alignment="CENTER"
+               BorderPane.alignment="CENTER">
+            <effect>
+                <DropShadow color="#00ffff" radius="20"/>
+            </effect>
+        </Label>
+    </top>
+
+    <!-- Mitte: Spiel + Info -->
+    <center>
+        <HBox spacing="40" alignment="CENTER">
+            <padding>
+                <Insets top="20" bottom="40" left="40" right="40"/>
+            </padding>
+
+            <!-- Das eigentliche Spielfeld mit Neon-Rahmen -->
+            <StackPane>
+                <Canvas fx:id="gameCanvas" width="300" height="600"/>
+                <Rectangle width="320" height="620" arcWidth="30" arcHeight="30"
+                           fill="transparent"
+                           stroke="#00ffff00" strokeWidth="6">
+                    <effect>
+                        <Glow level="0.9"/>
+                    </effect>
+                </Rectangle>
+            </StackPane>
+
+            <!-- Rechte Info-Leiste -->
+            <VBox spacing="25" alignment="CENTER">
+
+                <!-- SCORE -->
+                <VBox spacing="10" alignment="CENTER">
+                    <Label text="Score"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 24px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="8"/>
+                        </effect>
+                    </Label>
+
+                    <Label fx:id="scoreLabel"
+                           text="000000"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 48px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="12"/>
+                        </effect>
+                    </Label>
+                </VBox>
+
+
+                <!-- LEVEL-->
+                <VBox spacing="10" alignment="CENTER">
+                    <Label text="Level"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 24px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="8"/>
+                        </effect>
+                    </Label>
+
+                    <Label fx:id="levelLabel"
+                           text="1"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 48px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="12"/>
+                        </effect>
+                    </Label>
+                </VBox>
+
+
+                <!-- LINES -->
+                <VBox spacing="10" alignment="CENTER">
+                    <Label text="Lines"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 24px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="8"/>
+                        </effect>
+                    </Label>
+
+                    <Label fx:id="linesLabel"
+                           text="0"
+                           textFill="#00ffff"
+                           style="-fx-font-size: 48px; -fx-font-weight: bold;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="12"/>
+                        </effect>
+                    </Label>
+                </VBox>
+
+                <Button fx:id="exitButton"
+                        text="Hauptmenü"
+                        onAction="#exitToMenu"
+                        prefWidth="180" prefHeight="60"
+                        styleClass="game-button"
+                        style="-fx-background-color: #ff3b30; -fx-text-fill: white;
+                               -fx-font-size: 20px; -fx-font-weight: bold;
+                               -fx-background-radius: 15;">
+                    <effect>
+                        <DropShadow color="#00000080" radius="10" offsetY="5"/>
+                    </effect>
+                </Button>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>
