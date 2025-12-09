@@ -250,6 +250,9 @@ public class GameEngine implements Observable {
 
 
     private void checkFullRows() {
+
+        boolean anyRowCleared = false;
+
         // Alle Reihen (y) von unten nach oben prüfen
         for (int y = HEIGHT - 1; y >= 0; y--) {
             final int row = y;
@@ -262,6 +265,7 @@ public class GameEngine implements Observable {
 
             if (count >= WIDTH) {
                 System.out.println("Reihe voll");
+                anyRowCleared = true;
                 // Alle Blöcke der Reihe aus settledBlocks löschen
                 settledBlocks.removeIf(b -> b.getY() == row);
 
@@ -275,11 +279,6 @@ public class GameEngine implements Observable {
 
                 // Da wir die Zeilen verschoben haben, muss die neue untere Zeile nochmal überprüft werden
                 y++;
-
-
-                // Observer informieren
-                String eventScored = "scored";
-                notifyObservers(eventScored);
 
                 // Alle 5 Reihen erhöht sich das Level und damit die Geschwindigkeit (bei Schwierigkeit 1&2).
                 // Alle 3 Reihen bei Schwierigkeit 3.
@@ -301,6 +300,13 @@ public class GameEngine implements Observable {
 
             }
         }
+
+        if (anyRowCleared) {
+            // Observer informieren
+            String eventScored = "scored";
+            notifyObservers(eventScored);
+
+        }
     }
 
 
@@ -321,6 +327,8 @@ public class GameEngine implements Observable {
             obs.update(event);
         }
     }
+
+
 
 
 

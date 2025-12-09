@@ -4,6 +4,7 @@ module org.example.tetrisprototyp {
     requires javafx.graphics;
     requires javafx.base;
     requires jdk.compiler;
+    requires java.desktop;
     //requires org.example.tetrisprototyp;
     //requires org.example.tetrisprototyp;
 
