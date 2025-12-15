@@ -15,12 +15,14 @@ public class SoundManager implements Observer {
 
     // Thread-Pool für die asynchrone Verarbeitung. newCachedThreadPool() erstellt dabei neue Threads oder
     // wiederverwendet alte. Stellt die Erweiterbarkeit des Codes sicher, da nun auch z.B. Musik
-    // hinzugefügt werden kann
+    // hinzugefügt werden kann.
     private static final ExecutorService pool = Executors.newCachedThreadPool();
     // Damit die Datei nicht mehrmals geladen wird, wird ein Cache für sie erstellt
     private static final ConcurrentMap<String, byte[]> soundCache = new ConcurrentHashMap<>();
     // Cache für das konvertierte AudioFormat jeder Sound-Datei (wird beim Laden ermittelt und gespeichert)
     private final ConcurrentMap<String, AudioFormat> formatCache = new ConcurrentHashMap<>();
+
+    private volatile Clip currentClip = null;  // Speichert den gerade laufenden Clip
 
     /**
      * Observer-Funktion. Wenn eine Reihe gefüllt wurde ("scored"), wird der Sound abgespielt.
@@ -50,23 +52,37 @@ public class SoundManager implements Observer {
         try {
             // Lädt den Sound aus dem Cache oder vom Dateisystem (computeIfAbsent sorgt für Thread-Sicherheit)
             byte[] data = soundCache.computeIfAbsent(resourceName, this::loadSound);
-            // Erstelle einen AudioInputStream aus den gecachten Bytes
+
+            // Falls ein alter Clip läuft, wird dieser gestoppt und geschlossen.
+            // Somit wird immer nur ein Sound abgespielt, auch wenn mehrere Reihen vervollständigt wurden.
+            if (currentClip != null && currentClip.isRunning()) {
+                currentClip.stop();
+                currentClip.close();
+            }
+
+            // Erstelle einen AudioInputStream
             AudioInputStream ais = new AudioInputStream(
                     new java.io.ByteArrayInputStream(data),
                     getAudioFormat(resourceName),
                     data.length
             );
 
-            // Erstellung eines Audioclips
-            Clip clip = AudioSystem.getClip();
-            clip.open(ais);
-            clip.start();
-            // Listener, welcher den Clip schließt, sobald die Wiedergabe beendet ist
-            clip.addLineListener(event -> {
+            // Abspielen des Clips
+            currentClip = AudioSystem.getClip();
+            currentClip.open(ais);
+            currentClip.start();
+
+            // Nachdem der Clip abgespielt wurde, wird er geschlossen.
+            currentClip.addLineListener(event -> {
                 if (event.getType() == LineEvent.Type.STOP) {
-                    clip.close();
+                    currentClip.close();
+                    // Falls ein neuer Clip abgespielt wurde, während der andere noch lief, muss dieser null werden.
+                    if (currentClip == this.currentClip) {
+                        this.currentClip = null;  // Nur aufräumen, wenn es noch der aktuelle ist
+                    }
                 }
             });
+
 
         } catch (Exception e) {
             e.printStackTrace();

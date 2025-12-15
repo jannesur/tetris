@@ -250,10 +250,6 @@ public class GameEngine implements Observable {
     // Überprüfung, ob eine Reihe voll ist. Falls ja werden Observer informiert und das Level/Geschwindigkeit erhöht.
     private void checkFullRows() {
 
-        // Wird verwendet, damit der Soundmanager immer nur einmal aktiviert wird,
-        // auch wenn mehrere Reihen gleichzeitig gefüllt wurden.
-        boolean anyRowCleared = false;
-
         // Alle Reihen (y) von unten nach oben prüfen
         for (int y = HEIGHT - 1; y >= 0; y--) {
             final int row = y;
@@ -266,9 +262,12 @@ public class GameEngine implements Observable {
 
             if (count >= WIDTH) {
                 System.out.println("Reihe voll");
-                anyRowCleared = true;
                 // Alle Blöcke der Reihe aus settledBlocks löschen
                 settledBlocks.removeIf(b -> b.getY() == row);
+
+                // Observer informieren
+                String eventScored = "scored";
+                notifyObservers(eventScored);
 
 
                 // Alle Blöcke über dieser Zeile eine Reihe nach unten verschieben
@@ -302,13 +301,6 @@ public class GameEngine implements Observable {
             }
         }
 
-        // Sicherstellen, das Observer nur einmal informiert werden.
-        if (anyRowCleared) {
-            // Observer informieren
-            String eventScored = "scored";
-            notifyObservers(eventScored);
-
-        }
     }
 
 
