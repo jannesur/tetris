@@ -9,6 +9,7 @@ import org.example.tetrisprototyp.Composite.TetrisColors;
 
 import java.util.List;
 
+// Klasse für das Render des Spielfelds und der Puzzleteile
 public class BoardRenderer {
 
     private final GraphicsContext gc;
@@ -26,17 +27,16 @@ public class BoardRenderer {
 
 
     public void render(List<Block> settledBlocks, Polyomino current) {
+        // Breite und Höhe
         double w = width * tileSize;
         double h = height * tileSize;
 
-        // 1. Schöner Hintergrund (dunkelblau mit leichtem Verlauf)
+        // Hintergrund
         gc.setFill(Color.web("#0a001f"));
         gc.fillRect(0, 0, w, h);
 
-        // Optional: dezenter Sternenhimmel oder Noise (kann man weglassen)
-        // ...
 
-        // 2. Subtile Grid-Linien
+        // Grid-Linien
         gc.setStroke(Color.web("#ffffff0a"));
         gc.setLineWidth(1);
         for (int x = 0; x <= width; x++) {
@@ -46,17 +46,17 @@ public class BoardRenderer {
             gc.strokeLine(0, y * tileSize, w, y * tileSize);
         }
 
-        // 4. Settled Blocks
+        // Gesetzte Blöcke
         for (Block b : settledBlocks) {
             b.render(gc, tileSize);
         }
 
-        // 5. Aktuelles fallendes Teil (obendrauf!)
+        // Aktuelles Puzzleteil
         if (current != null) {
             current.render(gc, tileSize);
         }
 
-        // 6. Rahmen um das gesamte Board (Neon-Glow)
+        // Rahmen und das Spielfeld
         gc.setStroke(Color.CYAN);
         gc.setLineWidth(6);
         gc.setEffect(new Glow(0.9));
