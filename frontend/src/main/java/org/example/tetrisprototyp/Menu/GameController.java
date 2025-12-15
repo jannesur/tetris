@@ -66,12 +66,12 @@ public class GameController implements Observer {
             if (Settings.getDifficulty() == 3){
                 linesScored++;
                 if (linesScored % 3 == 0) {
-                    level++;;
+                    level++;
                 }
             } else {
                 linesScored++;
                 if (linesScored % 5 == 0) {
-                    level++;;
+                    level++;
                 }
             }
 

@@ -5,6 +5,7 @@ import org.example.tetrisprototyp.Composite.Polyomino;
 
 import java.util.List;
 
+// Klasse für die Kollision
 public class CollisionManager {
 
     private final int width;

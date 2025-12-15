@@ -11,39 +11,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
-// Game Engine als Observable, welches die zwei Observer Soundmanager und HistoryManager informiert
+/**
+ * Game Engine enthält die Hauptschleife des Spiels und implementiert die Spielmechanik und ihre Komponenten.
+ * Observable, welches die zwei Observer Soundmanager und HistoryManager informiert.
+ */
 public class GameEngine implements Observable {
 
+    // Größe der Kacheln und Breite/Höhe des Spielfeldes
     private static final int TILE_SIZE = 30;
     private static final int WIDTH = 10;
     private static final int HEIGHT = 20;
-    private final Random random = new Random();
 
+    // Random und JavaFX-Variablen
+    private final Random random = new Random();
     private final Canvas canvas;
     private final GraphicsContext gc;
     private AnimationTimer gameLoop;
+
+    // Instanzen der für die Spielmechanik benötigten Komponenten
     private Polyomino currentPolyomino;
     private PolyominoFactory polyominoFactory;
     private CollisionManager collisionManager;
     private BoardRenderer boardRenderer;
 
+    //Schwierigkeitsgrad
     private int difficulty;
 
 
-    // Zeitsteuerung & Geschwindigkeitsregulierung
+    // Variablen für Zeitsteuerung & Geschwindigkeitsregulierung
     private long lastUpdate = 0;
     double[] speedValues = {
             0.45, 0.40, 0.32, 0.25,
             0.18, 0.13, 0.10, 0.08, 0.06
-    };
+    };//Geschwindigkeitsgrade
     private double speed = speedValues[0]; // Sekunden pro Schritt
     private int linesScored = 0; // Wird bei der Geschwindigkeitserhöhung verwendet
     private int level = 1; // Wird bei der Geschwindigkeitserhöhung verwendet
 
-    // Gesetzte Blöcke
+    // Liste mit allen gesetzten Blöcken
     private List<Block> settledBlocks = new ArrayList<>();
 
+    // Liste aller Observer
     private final List<Observer> observers = new ArrayList<>();
 
 
@@ -64,12 +72,12 @@ public class GameEngine implements Observable {
         return canvas;
     }
 
-
+    // Aufrufen der Render-Funktion aus der boardRenderer-Klasse
     public void renderBoard() {
         boardRenderer.render(settledBlocks, currentPolyomino);
     }
 
-
+    // Starten der Spielschleife, was nach Verlassen der Schwierigkeitsauswahl passiert
     public void startGameLoop() {
 
         System.out.println("Das Spiel wird in Schwierigkeit " + difficulty + " gestartet");
@@ -106,23 +114,22 @@ public class GameEngine implements Observable {
         gameLoop.start();
     }
 
-
+    // Stoppen der Spielschleife und Informieren der Observer
     public void stopGameLoop() {
         if (gameLoop != null) {
             gameLoop.stop();
         }
-
         notifyObservers("gameOver");
-
     }
 
-
+    // Wird in der Spielschleife aufgerufen und enthält die Spielmechanik
     private void update() {
 
         if (currentPolyomino != null) {
 
-            // Prüft, ob der Block unten angekommen ist
-            //System.out.println(currentTetromino.toString());
+            // Prüft, ob der Block unten angekommen ist.
+            // Wenn der Block sich bewegen kann, so fällt er weiter nach unten.
+            // Ansonsten wird er gesetzt.
             if (collisionManager.canMove(currentPolyomino, 0, 1, settledBlocks)) {
                 currentPolyomino.move(0,1);
             } else {
@@ -135,12 +142,13 @@ public class GameEngine implements Observable {
                 checkFullRows();
 
 
-                //System.out.println("Tetromino gespawnt");
+                // Neues Polyomino erscheint
                 currentPolyomino =  spawnPolyomino();
             }
         }
     }
 
+    // Lässt ein neues Polyomino erscheinen. Enthält außerdem die überprüfung, ob das Spielfeld voll ist.
     private Polyomino spawnPolyomino() {
 
         if (difficulty == 1) {
@@ -159,6 +167,7 @@ public class GameEngine implements Observable {
             this.polyominoFactory = factories.get(random.nextInt(factories.size()));
         }
 
+        // Erstellung des Polyomino mit der Factory
         Polyomino newPoly = polyominoFactory.createRandomPolyomino();
 
 
@@ -169,12 +178,10 @@ public class GameEngine implements Observable {
             return null;
         }
 
-
         return newPoly;
-
     }
 
-
+    // Bewegung des Polyominos nach links
     public void moveLeft() {
         // Bewegung nur möglich wenn nicht an Wand
         if (collisionManager.canMove(currentPolyomino, -1, 0, settledBlocks)) {
@@ -182,6 +189,7 @@ public class GameEngine implements Observable {
         }
     }
 
+    // Bewegung des Polyominos nach rechts
     public void moveRight() {
         // Bewegung nur möglich wenn nicht an Wand
         if (collisionManager.canMove(currentPolyomino, 1, 0, settledBlocks)) {
@@ -189,7 +197,7 @@ public class GameEngine implements Observable {
         }
     }
 
-    //
+    // Rotieren des Polyominos. Dabei wird eine Kopie erstellt, an der geprüft wird, ob die Rotation gültig ist.
     public void rotateTetromino(String direction) {
         if (currentPolyomino == null) return;
 
@@ -234,22 +242,14 @@ public class GameEngine implements Observable {
         }
         copy.setPivot(original.getPivot());
 
-/*
-        for (Block bc : original.getBlocks()) {
-            if (bc instanceof Block b) {
-                // neue Block-Instanz mit gleicher Position und Farbe
-                Block cloned = new Block(b.getX(), b.getY(), b.getColor());
-                copy.addBlock(cloned);
-            }
-        }
- */
         return copy;
     }
 
 
 
-
+    // Überprüfung, ob eine Reihe voll ist. Falls ja werden Observer informiert und das Level/Geschwindigkeit erhöht.
     private void checkFullRows() {
+
         // Alle Reihen (y) von unten nach oben prüfen
         for (int y = HEIGHT - 1; y >= 0; y--) {
             final int row = y;
@@ -265,6 +265,10 @@ public class GameEngine implements Observable {
                 // Alle Blöcke der Reihe aus settledBlocks löschen
                 settledBlocks.removeIf(b -> b.getY() == row);
 
+                // Observer informieren
+                String eventScored = "scored";
+                notifyObservers(eventScored);
+
 
                 // Alle Blöcke über dieser Zeile eine Reihe nach unten verschieben
                 for (Block b : settledBlocks) {
@@ -275,11 +279,6 @@ public class GameEngine implements Observable {
 
                 // Da wir die Zeilen verschoben haben, muss die neue untere Zeile nochmal überprüft werden
                 y++;
-
-
-                // Observer informieren
-                String eventScored = "scored";
-                notifyObservers(eventScored);
 
                 // Alle 5 Reihen erhöht sich das Level und damit die Geschwindigkeit (bei Schwierigkeit 1&2).
                 // Alle 3 Reihen bei Schwierigkeit 3.
@@ -301,6 +300,7 @@ public class GameEngine implements Observable {
 
             }
         }
+
     }
 
 
@@ -321,6 +321,8 @@ public class GameEngine implements Observable {
             obs.update(event);
         }
     }
+
+
 
 
 

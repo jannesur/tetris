@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+// Klasse für Verarbeitung der Tasteneingaben
 public class GameInputHandler {
 
     private final GameEngine engine;
