@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import org.example.tetrisprototyp.Composite.Block;
 import org.example.tetrisprototyp.Composite.Polyomino;
 import org.example.tetrisprototyp.Factory.*;
+import org.example.tetrisprototyp.History.HistorySaver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +35,9 @@ public class GameEngine implements Observable {
     private CollisionManager collisionManager;
     private BoardRenderer boardRenderer;
 
-    //Schwierigkeitsgrad
+    //Schwierigkeitsgrad & Punktzahl
     private int difficulty;
-
+    private int score;
 
     // Variablen für Zeitsteuerung & Geschwindigkeitsregulierung
     private long lastUpdate = 0;
@@ -85,7 +86,7 @@ public class GameEngine implements Observable {
 
         // Erstellung der Observer
         Observer soundManager = new SoundManager();
-        Observer hSaver = new HistorySaver();
+        Observer hSaver = new HistorySaver("test", "testToken");
         addObserver(soundManager);
         addObserver(hSaver);
 
@@ -298,6 +299,16 @@ public class GameEngine implements Observable {
                     }
                 }
 
+                //Punktzahl erhöhen
+                score += 100;
+
+                // In GameStats übertragen
+                GameStats.setScore(score);
+                GameStats.setLevel(level);
+                GameStats.setLinesScored(linesScored);
+                GameStats.setDifficulty(difficulty);
+
+
             }
         }
 
@@ -321,12 +332,6 @@ public class GameEngine implements Observable {
             obs.update(event);
         }
     }
-
-
-
-
-
-
 
 }
 

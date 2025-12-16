@@ -5,8 +5,8 @@ module org.example.tetrisprototyp {
     requires javafx.base;
     requires jdk.compiler;
     requires java.desktop;
-    //requires org.example.tetrisprototyp;
-    //requires org.example.tetrisprototyp;
+    requires java.net.http;
+    requires com.fasterxml.jackson.databind;
 
 
     opens org.example.tetrisprototyp to javafx.fxml;
@@ -17,6 +17,8 @@ module org.example.tetrisprototyp {
     opens org.example.tetrisprototyp.Composite to javafx.fxml;
     exports org.example.tetrisprototyp.Factory;
     opens org.example.tetrisprototyp.Factory to javafx.fxml;
-    exports org.example.tetrisprototyp.Menu;
-    opens org.example.tetrisprototyp.Menu to javafx.fxml;
+    exports org.example.tetrisprototyp.MenuController;
+    opens org.example.tetrisprototyp.MenuController to javafx.fxml;
+    exports org.example.tetrisprototyp.History;
+    opens org.example.tetrisprototyp.History to javafx.fxml;
 }

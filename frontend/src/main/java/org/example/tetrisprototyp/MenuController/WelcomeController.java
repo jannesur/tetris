@@ -1,4 +1,4 @@
-package org.example.tetrisprototyp.Menu;
+package org.example.tetrisprototyp.MenuController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

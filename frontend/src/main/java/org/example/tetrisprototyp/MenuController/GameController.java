@@ -1,4 +1,4 @@
-package org.example.tetrisprototyp.Menu;
+package org.example.tetrisprototyp.MenuController;
 
 
 import javafx.animation.PauseTransition;
@@ -59,6 +59,7 @@ public class GameController implements Observer {
     public void update(String event) {
 
         if (event.equals("scored")) {
+
             System.out.println("Punkte erzielt!");
 
             score += 100;

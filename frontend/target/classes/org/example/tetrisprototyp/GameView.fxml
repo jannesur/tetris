@@ -10,7 +10,7 @@
 <?import javafx.scene.effect.Glow?>
 
 <BorderPane fx:id="gameRoot"
-            fx:controller="org.example.tetrisprototyp.Menu.GameController"
+            fx:controller="org.example.tetrisprototyp.MenuController.GameController"
             style="-fx-background-color: #0a001f;"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
 
@@ -51,7 +51,7 @@
 
                 <!-- SCORE -->
                 <VBox spacing="10" alignment="CENTER">
-                    <Label text="Score"
+                    <Label text="Punktzahl"
                            textFill="#00ffff"
                            style="-fx-font-size: 24px; -fx-font-weight: bold;">
                         <effect>
@@ -93,7 +93,7 @@
 
                 <!-- LINES -->
                 <VBox spacing="10" alignment="CENTER">
-                    <Label text="Lines"
+                    <Label text="Reihen"
                            textFill="#00ffff"
                            style="-fx-font-size: 24px; -fx-font-weight: bold;">
                         <effect>
