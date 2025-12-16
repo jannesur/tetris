@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.control.ListView?>
-<VBox fx:controller="org.example.tetrisprototyp.Menu.HistoryController"
+<VBox fx:controller="org.example.tetrisprototyp.MenuController.HistoryController"
       alignment="CENTER"
       spacing="30.0"
       style="-fx-background-color: linear-gradient(to bottom, #1a1a2e, #16213e);"

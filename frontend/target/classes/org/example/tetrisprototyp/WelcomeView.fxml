@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:controller="org.example.tetrisprototyp.Menu.WelcomeController"
+<VBox fx:controller="org.example.tetrisprototyp.MenuController.WelcomeController"
       alignment="CENTER"
       spacing="40"
       style="-fx-background-color: linear-gradient(to bottom, #1a1a2e, #16213e);"

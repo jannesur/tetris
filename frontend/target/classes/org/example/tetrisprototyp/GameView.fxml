@@ -10,7 +10,7 @@
 <?import javafx.scene.effect.Glow?>
 
 <BorderPane fx:id="gameRoot"
-            fx:controller="org.example.tetrisprototyp.Menu.GameController"
+            fx:controller="org.example.tetrisprototyp.MenuController.GameController"
             style="-fx-background-color: #0a001f;"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
 
