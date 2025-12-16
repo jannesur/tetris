@@ -1,8 +1,11 @@
-package org.example.tetrisprototyp.GameEngine;
+package org.example.tetrisprototyp.History;
+
+import org.example.tetrisprototyp.GameEngine.GameStats;
+import org.example.tetrisprototyp.GameEngine.Observer;
 
 import java.time.LocalDateTime;
 
-public class HistorySaver implements Observer{
+public class HistorySaver implements Observer {
 
     private final HistoryService historyService = new HistoryService();
     private final String jwtToken;

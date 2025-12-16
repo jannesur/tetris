@@ -19,4 +19,6 @@ module org.example.tetrisprototyp {
     opens org.example.tetrisprototyp.Factory to javafx.fxml;
     exports org.example.tetrisprototyp.Menu;
     opens org.example.tetrisprototyp.Menu to javafx.fxml;
+    exports org.example.tetrisprototyp.History;
+    opens org.example.tetrisprototyp.History to javafx.fxml;
 }
