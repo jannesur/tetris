@@ -59,6 +59,7 @@ public class GameController implements Observer {
     public void update(String event) {
 
         if (event.equals("scored")) {
+
             System.out.println("Punkte erzielt!");
 
             score += 100;

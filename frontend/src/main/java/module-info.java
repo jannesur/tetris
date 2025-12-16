@@ -5,8 +5,8 @@ module org.example.tetrisprototyp {
     requires javafx.base;
     requires jdk.compiler;
     requires java.desktop;
-    //requires org.example.tetrisprototyp;
-    //requires org.example.tetrisprototyp;
+    requires java.net.http;
+    requires com.fasterxml.jackson.databind;
 
 
     opens org.example.tetrisprototyp to javafx.fxml;
