@@ -1,4 +1,4 @@
-package org.example.tetrisprototyp.Menu;
+package org.example.tetrisprototyp.MenuController;
 
 
 import javafx.event.ActionEvent;
@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.canvas.Canvas;
-import org.example.tetrisprototyp.GameEngine.GameEngine;
 import org.example.tetrisprototyp.GameEngine.Settings;
 
 public class DifficultyController {

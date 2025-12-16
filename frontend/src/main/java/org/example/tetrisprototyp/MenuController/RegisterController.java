@@ -1,17 +1,10 @@
-package org.example.tetrisprototyp.Menu;
+package org.example.tetrisprototyp.MenuController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import org.example.tetrisprototyp.TetrisApplication;
-
-import java.io.IOException;
 
 public class RegisterController {
 
@@ -44,6 +37,43 @@ public class RegisterController {
 
         // Für die Uni-Abgabe: Nur simulierte Registrierung
         // Später kannst du hier z. B. in eine JSON-Datei oder DB schreiben
+
+        // --------------------------------------------------
+        // 👤 ECHTE REGISTRIERUNG ÜBER BACKEND (VORBEREITET)
+        // --------------------------------------------------
+        /*
+        try {
+            AuthService authService = new AuthService();
+
+            PlayerDTO player = authService.register(username, pass1);
+
+            showMessage(
+                    "Registrierung erfolgreich!\nWillkommen " + player.getUsername(),
+                    "#00ff88"
+            );
+
+            // Optional: automatisch zum Login wechseln
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(e ->
+                    ControllerUtils.loadView(
+                            event,
+                            "LoginView.fxml",
+                            "TETRIS - Login"
+                    )
+            );
+            pause.play();
+
+        } catch (Exception e) {
+            showMessage(
+                    "Registrierung fehlgeschlagen (Benutzername evtl. vergeben)",
+                    "#ff3b30"
+            );
+        }
+        */
+
+
+
+
         showMessage("Registrierung erfolgreich!\nDu kannst dich jetzt einloggen.", "#00ff88");
 
         // Optional: nach 2 Sekunden automatisch zum Login weiterleiten

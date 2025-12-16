@@ -1,11 +1,9 @@
-package org.example.tetrisprototyp.Menu;
+package org.example.tetrisprototyp.MenuController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import org.example.tetrisprototyp.GameEngine.GameEngineStarter;
+import org.example.tetrisprototyp.UserManagement.UserSession;
 
 
 public class MainMenuController {
@@ -16,9 +14,7 @@ public class MainMenuController {
     @FXML private Button logoutButton;
     @FXML private Button exitButton;
 
-    // ================================================================
-    // 1. Spiel starten
-    // ================================================================
+    //Wechsel zur Auswahl des Schwierigkeitsgrades
     @FXML
     private void startGame(ActionEvent event) {
         System.out.println("Spiel starten!");  // Hier später zur Spielszene wechseln
@@ -32,23 +28,21 @@ public class MainMenuController {
         ControllerUtils.loadView(event, "DifficultyView.fxml", "Tetris");
     }
 
-    // ================================================================
-    // 2. Historie ansehen
-    // ================================================================
+    // Wechsel zur HistoryView
     @FXML
     private void showHistory(ActionEvent event) {
         System.out.println("Historie wird angezeigt...");
         ControllerUtils.loadView(event, "HistoryView.fxml", "TETRIS - Historie");
     }
 
-    // ================================================================
-    // 3. Beenden → Programm komplett schließen
-    // ================================================================
+    // Logout und Zurückkehren zum StartMenü
     @FXML
     private void logout(ActionEvent event) {
         System.out.println("Nutzer wird ausgeloggt");
 
-        // Hier Logik für Logout
+        // Wegen JWT muss das Logout nur Frontendseitig gemacht werden
+        // JWT und User aus der Session entfernen
+        UserSession.getInstance().logout();
 
         ControllerUtils.loadView(event, "WelcomeView.fxml", "Tetris");
 
@@ -62,9 +56,7 @@ public class MainMenuController {
         System.exit(0);
     }
 
-    // ================================================================
-    // Hilfsmethoden
-    // ================================================================
+
 
 
     /** Alle Menü-Buttons temporär deaktivieren (z. B. während Spiel lädt) */

@@ -1,4 +1,4 @@
-package org.example.tetrisprototyp.Menu;
+package org.example.tetrisprototyp.MenuController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,14 +30,33 @@ public class LoginController {
             showError("Falscher Benutzername oder Passwort!\n(Tipp: Beides ist 123)");
         }
 
+         // --------------------------------------------------
+        // 🔐 ECHTER LOGIN ÜBER BACKEND (VORBEREITET)
+        // --------------------------------------------------
         /*
-        // Hier deine echte Login-Logik (Datenbank, JSON, etc.)
-        if (AuthService.login(user, pass)) {  // <-- deine Methode
-            loadScene("StartMenu.fxml");      // dein Hauptmenü mit "Spiel starten" etc.
-        } else {
+        try {
+            AuthService authService = new AuthService();
+
+            // JWT vom Server holen
+            String jwt = authService.login(user, pass);
+
+            // Session setzen
+            UserSession.getInstance().login(user, jwt);
+
+            errorLabel.setVisible(false);
+
+            // Weiter ins Hauptmenü
+            ControllerUtils.loadView(
+                    event,
+                    "MainMenuView.fxml",
+                    "TETRIS - MainMenu"
+            );
+
+        } catch (Exception e) {
             showError("Falscher Benutzername oder Passwort");
         }
-         */
+        */
+
     }
 
     @FXML
