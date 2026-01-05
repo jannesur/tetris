@@ -46,4 +46,14 @@ public class JwtService {
             return false;
         }
     }
+
+    public Instant extractExpiration(String token) {
+    return Jwts.parserBuilder()
+            .setSigningKey(SECRET)
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .getExpiration()
+            .toInstant();
+}
 }

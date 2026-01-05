@@ -35,10 +35,12 @@ public class PlayerService {
     }
 
   public Player createPlayer(Player player) {
-    player.setPassword(passwordEncoder.encode(player.getPassword())); // <-- HIER NullPointer
+    player.setId(null);
+    player.setPassword(passwordEncoder.encode(player.getPassword()));
     player.setRegistrationDate(LocalDate.now());
     return playerRepository.save(player);
 }
+
 
 
 

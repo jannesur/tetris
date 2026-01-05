@@ -3,11 +3,11 @@ package de.ostfalia.tetris.authentication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
@@ -17,35 +17,24 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
             .csrf(csrf -> csrf.disable())
-
+            .headers(headers -> headers.frameOptions(frame -> frame.disable()))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-
                 .requestMatchers(
-                    "/swagger-ui/**",
-                    "/v3/api-docs/**",
-                    "/v3/api-docs.yaml"
+                        "/authentication/**",
+                        "/player/**",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/h2-console/**"
                 ).permitAll()
-
-                .requestMatchers("/h2-console/**").permitAll()
-                .requestMatchers("/player/**").permitAll()
-                .requestMatchers("/authentication/**").permitAll()
-                .requestMatchers("/history/**").permitAll()
-
+                .requestMatchers("/history/**").authenticated()
                 .anyRequest().authenticated()
             )
-
-            .headers(headers -> headers
-                .frameOptions(frame -> frame.disable())
-            )
-
-            .addFilterBefore(
-                jwtFilter,
-                org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class
-            );
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

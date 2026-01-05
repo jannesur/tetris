@@ -2,8 +2,8 @@ package de.ostfalia.tetris.authentication;
 
 import java.io.IOException;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -14,16 +14,19 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final PlayerService playerService;
+    private final JwtLogoutService jwtLogoutService;
 
-    public JwtFilter(JwtService jwtService, PlayerService playerService) {
+    public JwtFilter(JwtService jwtService,
+                     PlayerService playerService,
+                     JwtLogoutService jwtLogoutService) {
         this.jwtService = jwtService;
         this.playerService = playerService;
+        this.jwtLogoutService = jwtLogoutService;
     }
 
     @Override
@@ -44,17 +47,21 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        // Token lesen
         String auth = request.getHeader("Authorization");
         if (auth == null || !auth.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        String token = auth.substring(7);
+        String token = auth.substring(7).trim();
 
         if (!jwtService.isValid(token)) {
             filterChain.doFilter(request, response);
+            return;
+        }
+
+        if (jwtLogoutService.isLoggedOut(token)) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
@@ -65,7 +72,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 new UsernamePasswordAuthenticationToken(user, null, null);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         filterChain.doFilter(request, response);
     }
 }
-

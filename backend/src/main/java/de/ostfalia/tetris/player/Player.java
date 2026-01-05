@@ -14,12 +14,14 @@ public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
+
 
     private String username;
 
    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-private String password;
+    private String password;
 
 
     private LocalDate registrationDate;

@@ -1,5 +1,8 @@
 package de.ostfalia.tetris.authentication;
 
+import java.time.Instant;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,10 +19,14 @@ public class AuthenticationController {
 
     private final PlayerService playerService;
     private final JwtService jwtService;
+    private final JwtLogoutService jwtLogoutService;
 
-    public AuthenticationController(PlayerService playerService, JwtService jwtService) {
+    public AuthenticationController(PlayerService playerService,
+                                    JwtService jwtService,
+                                    JwtLogoutService jwtLogoutService) {
         this.playerService = playerService;
         this.jwtService = jwtService;
+        this.jwtLogoutService = jwtLogoutService;
     }
 
     @PostMapping("/token")
@@ -31,5 +38,27 @@ public class AuthenticationController {
         }
 
         return jwtService.generateToken(player.getUsername());
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestBody LogoutRequest request) {
+
+        if (request == null || request.getToken() == null || request.getToken().isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        String token = request.getToken().trim();
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        if (!jwtService.isValid(token)) {
+            return ResponseEntity.status(401).build();
+        }
+
+        Instant expiresAt = jwtService.extractExpiration(token);
+        jwtLogoutService.logout(token, expiresAt);
+
+        return ResponseEntity.noContent().build();
     }
 }
