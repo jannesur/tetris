@@ -6,6 +6,7 @@ public class UserSession {
 
     private String username;
     private String jwt;
+    private Long playerId;
 
     private UserSession() {}
 
@@ -16,16 +17,19 @@ public class UserSession {
         return instance;
     }
 
-    public void login(String username, String jwt) {
+    public void login(String username, String jwt, Long playerId) {
         this.username = username;
         this.jwt = jwt;
+        this.playerId = playerId;
     }
 
     public void logout() {
         this.username = null;
         this.jwt = null;
+        this.playerId = null;
     }
 
     public String getJwt() { return jwt; }
     public String getUsername() { return username; }
+    public Long getPlayerId() { return playerId; }
 }

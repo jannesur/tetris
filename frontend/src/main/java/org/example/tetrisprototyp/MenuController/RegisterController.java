@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.example.tetrisprototyp.UserManagement.AuthService;
+import org.example.tetrisprototyp.UserManagement.PlayerDTO;
 
 public class RegisterController {
 
@@ -35,13 +37,6 @@ public class RegisterController {
             return;
         }
 
-        // Für die Uni-Abgabe: Nur simulierte Registrierung
-        // Später kannst du hier z. B. in eine JSON-Datei oder DB schreiben
-
-        // --------------------------------------------------
-        // 👤 ECHTE REGISTRIERUNG ÜBER BACKEND (VORBEREITET)
-        // --------------------------------------------------
-        /*
         try {
             AuthService authService = new AuthService();
 
@@ -52,16 +47,11 @@ public class RegisterController {
                     "#00ff88"
             );
 
-            // Optional: automatisch zum Login wechseln
-            PauseTransition pause = new PauseTransition(Duration.seconds(2));
-            pause.setOnFinished(e ->
-                    ControllerUtils.loadView(
-                            event,
-                            "LoginView.fxml",
-                            "TETRIS - Login"
-                    )
+            ControllerUtils.loadView(
+                    event,
+                    "LoginView.fxml",
+                    "TETRIS - Login"
             );
-            pause.play();
 
         } catch (Exception e) {
             showMessage(
@@ -69,20 +59,6 @@ public class RegisterController {
                     "#ff3b30"
             );
         }
-        */
-
-
-
-
-        showMessage("Registrierung erfolgreich!\nDu kannst dich jetzt einloggen.", "#00ff88");
-
-        // Optional: nach 2 Sekunden automatisch zum Login weiterleiten
-        // (kannst du auskommentieren, wenn du nicht willst)
-        /*
-        PauseTransition pause = new PauseTransition(Duration.seconds(2));
-        pause.setOnFinished(e -> loadView(event, "Login.fxml", "TETRIS - Login"));
-        pause.play();
-        */
     }
 
     @FXML

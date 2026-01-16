@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.example.tetrisprototyp.UserManagement.AuthService;
+import org.example.tetrisprototyp.UserManagement.PlayerDTO;
+import org.example.tetrisprototyp.UserManagement.UserSession;
 
 public class LoginController {
 
@@ -23,25 +26,16 @@ public class LoginController {
             return;
         }
 
-        if ("123".equals(user) && "123".equals(pass)) {
-            errorLabel.setVisible(false);
-            ControllerUtils.loadView(event, "MainMenuView.fxml", "TETRIS - MainMenu");
-        } else {
-            showError("Falscher Benutzername oder Passwort!\n(Tipp: Beides ist 123)");
-        }
-
-         // --------------------------------------------------
-        // 🔐 ECHTER LOGIN ÜBER BACKEND (VORBEREITET)
-        // --------------------------------------------------
-        /*
         try {
             AuthService authService = new AuthService();
 
             // JWT vom Server holen
             String jwt = authService.login(user, pass);
 
+            PlayerDTO player = authService.loadUser(user, jwt);
+
             // Session setzen
-            UserSession.getInstance().login(user, jwt);
+            UserSession.getInstance().login(user, jwt, player.getId());
 
             errorLabel.setVisible(false);
 
@@ -55,7 +49,6 @@ public class LoginController {
         } catch (Exception e) {
             showError("Falscher Benutzername oder Passwort");
         }
-        */
 
     }
 

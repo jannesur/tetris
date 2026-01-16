@@ -7,6 +7,7 @@ import org.example.tetrisprototyp.Composite.Block;
 import org.example.tetrisprototyp.Composite.Polyomino;
 import org.example.tetrisprototyp.Factory.*;
 import org.example.tetrisprototyp.History.HistorySaver;
+import org.example.tetrisprototyp.UserManagement.UserSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,7 @@ public class GameEngine implements Observable {
 
         // Erstellung der Observer
         Observer soundManager = new SoundManager();
-        Observer hSaver = new HistorySaver("test", "testToken");
+        Observer hSaver = new HistorySaver(UserSession.getInstance());
         addObserver(soundManager);
         addObserver(hSaver);
 

@@ -10,7 +10,7 @@ public class HistoryLoader {
         this.historyService = historyService;
     }
 
-    public List<GameHistoryDTO> loadHistory(String jwtToken) {
-        return historyService.loadHistory(jwtToken);
+    public List<GameHistoryDTO> loadHistory(Long playerId, String jwtToken) {
+        return historyService.loadHistory(playerId, jwtToken);
     }
 }

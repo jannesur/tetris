@@ -2,18 +2,17 @@ package org.example.tetrisprototyp.History;
 
 import org.example.tetrisprototyp.GameEngine.GameStats;
 import org.example.tetrisprototyp.GameEngine.Observer;
+import org.example.tetrisprototyp.UserManagement.UserSession;
 
 import java.time.LocalDateTime;
 
 public class HistorySaver implements Observer {
 
     private final HistoryService historyService = new HistoryService();
-    private final String jwtToken;
-    private final String username;
+    private final UserSession session;
 
-    public HistorySaver(String username, String jwtToken) {
-        this.username = username;
-        this.jwtToken = jwtToken;
+    public HistorySaver(UserSession session) {
+        this.session = session;
     }
 
     @Override
@@ -22,9 +21,13 @@ public class HistorySaver implements Observer {
         if (event.equals("gameOver")) {
             System.out.println("Historie wird gespeichert");
 
+            if (session.getJwt() == null || session.getPlayerId() == null) {
+                System.out.println("Keine aktive Session gefunden, Historie wird nicht gespeichert");
+                return;
+            }
 
-            GameHistoryDTO history = new GameHistoryDTO(
-                    username,
+            HistoryRequestDTO history = new HistoryRequestDTO(
+                    session.getPlayerId(),
                     GameStats.getScore(),
                     GameStats.getLevel(),
                     GameStats.getLinesScored(),
@@ -32,17 +35,14 @@ public class HistorySaver implements Observer {
                     LocalDateTime.now().toString()
             );
 
-            System.out.println("Username: " + history.getUsername());
+            System.out.println("PlayerId: " + history.getPlayerId());
             System.out.println("Score: " + history.getScore());
             System.out.println("Level: " + history.getLevel());
             System.out.println("Lines: " + history.getRowsCleared());
             System.out.println("Difficulty: " + history.getDifficulty());
             System.out.println("Played at: " + history.getPlayedAt());
 
-
-
-
-            //historyService.saveHistory(history, jwtToken);
+            historyService.saveHistory(history, session.getJwt());
 
 
         }
