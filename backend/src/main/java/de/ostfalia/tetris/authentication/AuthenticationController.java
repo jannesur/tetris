@@ -13,8 +13,8 @@ import de.ostfalia.tetris.player.Player;
 import de.ostfalia.tetris.player.PlayerService;
 
 @RestController
-@RequestMapping("/api/auth")
-@CrossOrigin(origins = { "http://localhost:5173", "http://localhost:4200" })
+@RequestMapping("/authentication")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthenticationController {
 
     private final PlayerService playerService;

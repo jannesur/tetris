@@ -5,10 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import org.example.tetrisprototyp.History.GameHistoryDTO;
 import org.example.tetrisprototyp.History.HistoryLoader;
-import org.example.tetrisprototyp.History.HistoryService;
-import org.example.tetrisprototyp.UserManagement.UserSession;
-
-import java.util.List;
 
 
 public class HistoryController {
@@ -22,39 +18,46 @@ public class HistoryController {
 
     @FXML
     public void initialize() {
-        UserSession session = UserSession.getInstance();
-        historyList.getItems().clear();
 
-        if (session.getJwt() == null || session.getPlayerId() == null) {
-            historyList.getItems().add("Bitte einloggen, um die Historie zu sehen.");
-            return;
-        }
-
+        // Logik für abrufen der Historie aus der Datenbank
+        /*
         HistoryService historyService = new HistoryService();
         historyLoader = new HistoryLoader(historyService);
 
-        List<GameHistoryDTO> history = historyLoader.loadHistory(session.getPlayerId(), session.getJwt());
+        List<GameHistoryDTO> history = historyLoader.loadHistory("test");
 
-        if (history.isEmpty()) {
-            historyList.getItems().add("Keine Historie vorhanden.");
-            return;
-        }
-
+        historyList.getItems().clear();
         for (GameHistoryDTO dto : history) {
             historyList.getItems().add(formatHistory(dto));
         }
+
+         */
+
+        loadDummyHistory();
     }
 
 
 
     private String formatHistory(GameHistoryDTO h) {
-        String playedAt = h.getPlayedAt() != null ? h.getPlayedAt() : "unbekannt";
-        return "Spieler: " + h.getUsername() +
+        return "👤 Spieler: " + h.getUsername() +
                 " | Punkte: " + h.getScore() +
                 " | Level: " + h.getLevel() +
                 " | Reihen: " + h.getRowsCleared() +
-                " | Schwierigkeit: " + h.getDifficulty() +
-                " | Gespielt: " + playedAt;
+                " | Schwierigkeit: " + h.getDifficulty();
+    }
+
+
+    private void loadDummyHistory() {
+        historyList.getItems().addAll(
+                "👤 Spieler: LangerBenutzername123456789   |  Punkte: 12.300  | Level: 8  | Reihen: 34 | Schwierigkeit: Mittel",
+                "👤 Spieler: LangerBenutzername123456789  |  Punkte: 8.950   | Level: 6  | Reihen: 27 | Schwierigkeit: Leicht",
+                "👤 Spieler: LangerBenutzername123456789  |  Punkte: 22.410  | Level: 12 | Reihen: 48 | Schwierigkeit: Schwer",
+                "👤 Spieler: LangerBenutzername123456789    |  Punkte: 4.200   | Level: 3  | Reihen: 11 | Schwierigkeit: Leicht",
+                "👤 Spieler: LangerBenutzername123456789    |  Punkte: 4.200   | Level: 3  | Reihen: 11 | Schwierigkeit: Leicht",
+                "👤 Spieler: LangerBenutzername123456789    |  Punkte: 4.200   | Level: 3  | Reihen: 11 | Schwierigkeit: Leicht",
+                "👤 Spieler: LangerBenutzername123456789    |  Punkte: 4.200   | Level: 3  | Reihen: 11 | Schwierigkeit: Leicht",
+                "👤 Spieler: LangerBenutzername123456789    |  Punkte: 4.200   | Level: 3  | Reihen: 11 | Schwierigkeit: Leicht"
+        );
     }
 
 

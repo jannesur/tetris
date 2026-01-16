@@ -25,13 +25,13 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                        "/api/auth/**",
-                        "/api/user/**",
+                        "/authentication/**",
+                        "/player/**",
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
                         "/h2-console/**"
                 ).permitAll()
-                .requestMatchers("/api/history/**").authenticated()
+                .requestMatchers("/history/**").authenticated()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

@@ -22,9 +22,6 @@ public class GameHistoryDTO {
     private int difficulty;
     private String playedAt; // ISO-8601 String
 
-    public GameHistoryDTO() {
-    }
-
     // Konstruktor
     public GameHistoryDTO(String username, int score, int level,
                           int rowsCleared, int difficulty, String playedAt) {

@@ -21,5 +21,4 @@ module org.example.tetrisprototyp {
     opens org.example.tetrisprototyp.MenuController to javafx.fxml;
     exports org.example.tetrisprototyp.History;
     opens org.example.tetrisprototyp.History to javafx.fxml;
-    opens org.example.tetrisprototyp.UserManagement to com.fasterxml.jackson.databind;
 }

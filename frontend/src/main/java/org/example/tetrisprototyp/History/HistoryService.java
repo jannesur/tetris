@@ -20,7 +20,7 @@ public class HistoryService {
     private final HttpClient client = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public void saveHistory(HistoryRequestDTO history, String jwtToken) {
+    public void saveHistory(GameHistoryDTO history, String jwtToken) {
         try {
             String json = mapper.writeValueAsString(history);
 
@@ -45,14 +45,10 @@ public class HistoryService {
         }
     }
 
-    public List<GameHistoryDTO> loadHistory(Long playerId, String jwtToken) {
+    public List<GameHistoryDTO> loadHistory(String jwtToken) {
         try {
-            if (playerId == null) {
-                return List.of();
-            }
-
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(BASE_URL + "/" + playerId))
+                    .uri(URI.create(BASE_URL))
                     .header("Authorization", "Bearer " + jwtToken)
                     .GET()
                     .build();
@@ -60,12 +56,9 @@ public class HistoryService {
             HttpResponse<String> response =
                     client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            if (response.statusCode() != 200) {
-                System.err.println("Fehler beim Laden: " + response.body());
-                return List.of();
-            }
-
-            return Arrays.asList(mapper.readValue(response.body(), GameHistoryDTO[].class));
+            return Arrays.asList(
+                    mapper.readValue(response.body(), GameHistoryDTO[].class)
+            );
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/api/user")
-@CrossOrigin(origins = { "http://localhost:5173", "http://localhost:4200" })
+@RequestMapping("/player")
+@CrossOrigin(origins = "http://localhost:5173")
 public class PlayerController {
     
     private final PlayerService playerService;
@@ -30,18 +30,13 @@ public class PlayerController {
         return this.playerService.getAllPlayers();
     }
 
-    @GetMapping("/{username}")
-    public Player getPlayerByUsername(@PathVariable String username) {
-        return this.playerService.loadUserByUsername(username);
-    }
-
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public Player getPlayerById(@PathVariable Long id) {
         return this.playerService.getPlayerById(id);
     }
     
 
-	@PostMapping("/register")
+	@PostMapping
 	public Player createPlayer(@RequestBody Player player) {
 		return this.playerService.createPlayer(player);
 	}
@@ -59,7 +54,7 @@ public class PlayerController {
 	//@PatchMapping("/{id}")
 	
 
-	@DeleteMapping("/id/{id}")
+	@DeleteMapping("/{id}")
 	public void deletePlayer(@PathVariable Long id) { 
     }    
 		

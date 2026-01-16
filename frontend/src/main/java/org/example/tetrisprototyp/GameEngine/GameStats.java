@@ -36,7 +36,7 @@ public class GameStats {
     }
 
     public static void setLinesScored(int linesScored) {
-        GameStats.linesScored = linesScored;
+        GameStats.linesScored = GameStats.linesScored;
     }
 
     public static void setDifficulty(int difficulty) {
