@@ -42,7 +42,7 @@ public class HistorySaver implements Observer {
 
 
 
-            //historyService.saveHistory(history, jwtToken);
+            historyService.saveHistory(history, jwtToken);
 
 
         }

@@ -5,7 +5,9 @@ public class HistoryRequest {
 
     private int score;
     private int level;
-    private Long playerId;
+    private int rowsCleared;
+    private int difficulty;
+    private String playedAt;
 
     public int getScore() { 
         return score; 
@@ -23,12 +25,28 @@ public class HistoryRequest {
         this.level = level; 
     }
 
-    public Long getPlayerId() { 
-        return playerId; 
+    public int getRowsCleared() {
+        return rowsCleared;
     }
 
-    public void setPlayerId(Long playerId) { 
-        this.playerId = playerId; 
+    public void setRowsCleared(int rowsCleared) {
+        this.rowsCleared = rowsCleared;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getPlayedAt() {
+        return playedAt;
+    }
+
+    public void setPlayedAt(String playedAt) {
+        this.playedAt = playedAt;
     }
 }
 

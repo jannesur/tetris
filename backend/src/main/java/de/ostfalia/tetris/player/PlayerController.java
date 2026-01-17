@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/player")
+@RequestMapping("/api/user")
 @CrossOrigin(origins = "http://localhost:5173")
 public class PlayerController {
     

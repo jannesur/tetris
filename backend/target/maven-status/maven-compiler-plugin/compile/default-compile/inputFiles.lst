@@ -1,8 +1,16 @@
 /Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/TetrisApplication.java
-/Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/authentication/Authentication.java
+/Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/authentication/AuthenticationController.java
+/Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/authentication/BeanConfig.java
+/Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/authentication/JwtFilter.java
+/Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/authentication/JwtLogoutService.java
+/Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/authentication/JwtService.java
+/Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/authentication/LoginRequest.java
+/Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/authentication/LogoutRequest.java
+/Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/authentication/SecurityConfig.java
 /Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/history/History.java
 /Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/history/HistoryController.java
 /Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/history/HistoryRepository.java
+/Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/history/HistoryRequest.java
 /Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/history/HistoryService.java
 /Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/player/Player.java
 /Users/jannesurborg/Documents/Tetris/tetris/backend/src/main/java/de/ostfalia/tetris/player/PlayerController.java

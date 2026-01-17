@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.tetrisprototyp.UserManagement.UserSession;
 
 
 /**
@@ -22,7 +23,14 @@ public class HistoryService {
 
     public void saveHistory(GameHistoryDTO history, String jwtToken) {
         try {
-            String json = mapper.writeValueAsString(history);
+            HistoryRequestDTO payload = new HistoryRequestDTO(
+                    history.getScore(),
+                    history.getLevel(),
+                    history.getRowsCleared(),
+                    history.getDifficulty(),
+                    history.getPlayedAt()
+            );
+            String json = mapper.writeValueAsString(payload);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(BASE_URL))
