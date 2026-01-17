@@ -6,6 +6,8 @@ public class UserSession {
 
     private String username;
     private String jwt;
+    private Long playerId;
+
 
     private UserSession() {}
 
@@ -19,6 +21,11 @@ public class UserSession {
     public void login(String username, String jwt) {
         this.username = username;
         this.jwt = jwt;
+        this.playerId = playerId;
+    }
+
+    public Long getPlayerId() {
+        return playerId;
     }
 
     public void logout() {

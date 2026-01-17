@@ -23,17 +23,17 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .headers(headers -> headers.frameOptions(frame -> frame.disable()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                        "/authentication/**",
-                        "/player/**",
-                        "/swagger-ui/**",
-                        "/v3/api-docs/**",
-                        "/h2-console/**"
-                ).permitAll()
-                .requestMatchers("/history/**").authenticated()
-                .anyRequest().authenticated()
-            )
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/api/user/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/h2-console/**"
+                        ).permitAll()
+                        .requestMatchers("/api/history/**").authenticated()
+                        .anyRequest().authenticated()
+                )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

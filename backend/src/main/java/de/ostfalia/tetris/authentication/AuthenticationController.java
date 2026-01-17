@@ -1,6 +1,7 @@
 package de.ostfalia.tetris.authentication;
 
 import java.time.Instant;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +14,7 @@ import de.ostfalia.tetris.player.Player;
 import de.ostfalia.tetris.player.PlayerService;
 
 @RestController
-@RequestMapping("/authentication")
+@RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AuthenticationController {
 
@@ -30,15 +31,22 @@ public class AuthenticationController {
     }
 
     @PostMapping("/token")
-    public String login(@RequestBody LoginRequest login) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest login) {
         Player player = playerService.loadUserByUsername(login.getUsername());
 
         if (!playerService.checkPassword(login.getPassword(), player.getPassword())) {
-            throw new RuntimeException("Invalid login");
+            return ResponseEntity.status(401).build();
         }
 
-        return jwtService.generateToken(player.getUsername());
+        String token = jwtService.generateToken(player.getUsername());
+
+        return ResponseEntity.ok(Map.of(
+                "token", token,
+                "playerId", player.getId(),
+                "username", player.getUsername()
+        ));
     }
+
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@RequestBody LogoutRequest request) {

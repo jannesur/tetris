@@ -1,6 +1,8 @@
 package de.ostfalia.tetris.history;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -13,11 +15,9 @@ import jakarta.persistence.EntityNotFoundException;
 public class HistoryService {
 
     private final HistoryRepository historyRepository;
-    private final PlayerRepository playerRepository;
 
-    public HistoryService(HistoryRepository historyRepository, PlayerRepository playerRepository) {
+    public HistoryService(HistoryRepository historyRepository) {
         this.historyRepository = historyRepository;
-        this.playerRepository = playerRepository;
     }
 
     public List<History> getAllHistories() {
@@ -33,18 +33,26 @@ public class HistoryService {
         return historyRepository.findByPlayerId(playerId);
     }
 
-    public History createHistory(HistoryRequest req) {
-
-        Player player = playerRepository.findById(req.getPlayerId())
-                .orElseThrow(() -> new EntityNotFoundException("Player not found"));
-
+    public History createHistory(HistoryRequest req, Player player) {
         History history = new History();
         history.setScore(req.getScore());
         history.setLevel(req.getLevel());
-        history.setHistoryDate(LocalDate.now());
+        history.setRowsCleared(req.getRowsCleared());
+        history.setDifficulty(req.getDifficulty());
+        history.setPlayedAt(parsePlayedAt(req.getPlayedAt()));
         history.setPlayer(player);
 
         return historyRepository.save(history);
     }
-}
 
+    private LocalDateTime parsePlayedAt(String playedAt) {
+        if (playedAt == null || playedAt.isBlank()) {
+            return LocalDateTime.now();
+        }
+        try {
+            return LocalDateTime.parse(playedAt);
+        } catch (DateTimeParseException ex) {
+            return LocalDateTime.now();
+        }
+    }
+}
