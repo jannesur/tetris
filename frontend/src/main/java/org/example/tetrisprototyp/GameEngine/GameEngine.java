@@ -191,20 +191,32 @@ public class GameEngine implements Observable {
     }
 
     // Bewegung des Polyominos nach links
+
+
     public void moveLeft() {
-        // Bewegung nur möglich wenn nicht an Wand
+
+        if (currentPolyomino == null) return;
+
         if (collisionManager.canMove(currentPolyomino, -1, 0, settledBlocks)) {
+
             currentPolyomino.move(-1, 0);
+
         }
+
     }
 
-    // Bewegung des Polyominos nach rechts
     public void moveRight() {
-        // Bewegung nur möglich wenn nicht an Wand
+
+        if (currentPolyomino == null) return;
+
         if (collisionManager.canMove(currentPolyomino, 1, 0, settledBlocks)) {
+
             currentPolyomino.move(1, 0);
+
         }
+
     }
+
 
     // Rotieren des Polyominos. Dabei wird eine Kopie erstellt, an der geprüft wird, ob die Rotation gültig ist.
     public void rotateTetromino(String direction) {

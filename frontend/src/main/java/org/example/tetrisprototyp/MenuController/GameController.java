@@ -9,10 +9,7 @@ import javafx.scene.control.Label;
 
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.example.tetrisprototyp.GameEngine.GameEngine;
-import org.example.tetrisprototyp.GameEngine.GameInputHandler;
-import org.example.tetrisprototyp.GameEngine.Observer;
-import org.example.tetrisprototyp.GameEngine.Settings;
+import org.example.tetrisprototyp.GameEngine.*;
 
 public class GameController implements Observer {
 
@@ -40,6 +37,17 @@ public class GameController implements Observer {
         // Erstellt den inputHandler für die Verarbeitung der Nutzereingaben
         GameInputHandler inputHandler = new GameInputHandler(engine);
         inputHandler.registerEvents(gameCanvas.getScene());
+
+
+        gameCanvas.setFocusTraversable(true);
+        javafx.application.Platform.runLater(() -> gameCanvas.requestFocus());
+
+
+        GameStats.setScore(0);
+        GameStats.setLevel(level);
+        GameStats.setLinesScored(0);
+        GameStats.setDifficulty(Settings.getDifficulty());
+
 
         // GameController registriert sich selber als Observer, damit die Punktzahl in der View geändert werden kann
         engine.addObserver(this);

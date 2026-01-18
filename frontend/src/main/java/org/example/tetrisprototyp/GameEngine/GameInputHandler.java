@@ -1,5 +1,6 @@
 package org.example.tetrisprototyp.GameEngine;
 
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -14,10 +15,14 @@ public class GameInputHandler {
         this.engine = engine;
     }
 
+    private EventHandler<KeyEvent> keyHandler;
 
     public void registerEvents(Scene scene) {
+        if (keyHandler != null) {
+            scene.removeEventFilter(KeyEvent.KEY_PRESSED, keyHandler);
+        }
 
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        keyHandler = event -> {
             if (event.getCode() == KeyCode.LEFT) {
                 engine.moveLeft();
             } else if (event.getCode() == KeyCode.RIGHT) {
@@ -27,10 +32,10 @@ public class GameInputHandler {
             } else if (event.getCode() == KeyCode.DOWN) {
                 engine.rotateTetromino("counterclockwise");
             }
-        });
+        };
 
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, keyHandler);
     }
-
 
 
 
