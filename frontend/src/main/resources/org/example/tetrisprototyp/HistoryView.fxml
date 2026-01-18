@@ -30,6 +30,14 @@
         </effect>
     </Label>
 
+    <Label fx:id="statsLabel"
+           text="Spiele: 0 | Bestscore: 0 | Durchschnitt: 0 | Best-Level: 0"
+           textFill="#00ffff"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;">
+        <effect>
+            <DropShadow color="#00ffff" radius="6"/>
+        </effect>
+    </Label>
 
     <!-- LISTVIEW FÜR HISTORIE -->
     <ListView fx:id="historyList"
