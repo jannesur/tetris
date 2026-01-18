@@ -81,7 +81,7 @@
     </VBox>
 
     <!-- Footer -->
-    <Label text="© 2025 Janne Melina Surborg und Konstantin Königshofen – HAW Ostfalia"
+    <Label text="© Tetris"
            textFill="#444466"
            style="-fx-font-size: 12px;"/>
 </VBox>
