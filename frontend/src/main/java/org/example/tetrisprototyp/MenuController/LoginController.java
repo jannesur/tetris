@@ -1,5 +1,6 @@
 package org.example.tetrisprototyp.MenuController;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -13,8 +14,10 @@ public class LoginController {
 
     @FXML
     private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    @FXML private Label errorLabel;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Label errorLabel;
 
     @FXML
     private void performLogin(ActionEvent event) {
@@ -26,24 +29,18 @@ public class LoginController {
             return;
         }
 
-        try {
-            AuthService authService = new AuthService();
+        AuthService authService = new AuthService();
 
-            String jwt = authService.login(user, pass);
-
-            UserSession.getInstance().login(user, jwt);
-
-            errorLabel.setVisible(false);
-
-            ControllerUtils.loadView(
-                    event,
-                    "MainMenuView.fxml",
-                    "TETRIS - MainMenu"
-            );
-
-        } catch (Exception e) {
-            showError("Falscher Benutzername oder Passwort");
-        }
+        authService.loginAsync(user, pass)
+                .thenAccept(jwt -> Platform.runLater(() -> {
+                    UserSession.getInstance().login(user, jwt);
+                    errorLabel.setVisible(false);
+                    ControllerUtils.loadView(event, "MainMenuView.fxml", "TETRIS - MainMenu");
+                }))
+                .exceptionally(ex -> {
+                    Platform.runLater(() -> showError("Falscher Benutzername oder Passwort"));
+                    return null;
+                });
     }
 
     @FXML

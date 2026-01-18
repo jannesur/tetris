@@ -1,6 +1,7 @@
 package org.example.tetrisprototyp.History;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class HistoryLoader {
 
@@ -10,7 +11,7 @@ public class HistoryLoader {
         this.historyService = historyService;
     }
 
-    public List<GameHistoryDTO> loadHistory(String jwtToken) {
-        return historyService.loadHistory(jwtToken);
+    public CompletableFuture<List<GameHistoryDTO>> loadHistoryAsync(String jwtToken) {
+        return historyService.loadHistoryAsync(jwtToken);
     }
 }

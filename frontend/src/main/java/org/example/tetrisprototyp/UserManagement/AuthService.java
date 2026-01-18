@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.concurrent.CompletableFuture;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,7 +18,7 @@ public class AuthService {
     // 🔐 LOGIN
     // ---------------------------
 
-    public String login(String username, String password) {
+    public CompletableFuture<String> loginAsync(String username, String password) {
         try {
             LoginRequestDTO login = new LoginRequestDTO(username, password);
             String json = mapper.writeValueAsString(login);
@@ -28,19 +29,25 @@ public class AuthService {
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
 
-            HttpResponse<String> response =
-                    client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() == 200) {
-                LoginResponseDTO dto = mapper.readValue(response.body(), LoginResponseDTO.class);
-                return dto.getToken();
-
-            } else {
-                throw new RuntimeException("Login fehlgeschlagen");
-            }
-
+            return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(response -> {
+                        if (response.statusCode() != 200) {
+                            throw new RuntimeException("Login fehlgeschlagen: " + response.statusCode());
+                        }
+                        return response.body();
+                    })
+                    .thenApply(body -> {
+                        try {
+                            LoginResponseDTO dto = mapper.readValue(body, LoginResponseDTO.class);
+                            return dto.getToken();
+                        } catch (Exception e) {
+                            throw new RuntimeException("Login-Response konnte nicht geparst werden", e);
+                        }
+                    });
         } catch (Exception e) {
-            throw new RuntimeException("Login Fehler", e);
+            CompletableFuture<String> failed = new CompletableFuture<>();
+            failed.completeExceptionally(e);
+            return failed;
         }
     }
 

@@ -42,8 +42,11 @@ public class HistorySaver implements Observer {
 
 
 
-            historyService.saveHistory(history, jwtToken);
-
+            historyService.saveHistoryAsync(history, jwtToken)
+                    .exceptionally(ex -> {
+                        ex.printStackTrace();
+                        return null;
+                    });
 
         }
 

@@ -6,6 +6,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.tetrisprototyp.UserManagement.UserSession;
@@ -21,7 +22,7 @@ public class HistoryService {
     private final HttpClient client = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public void saveHistory(GameHistoryDTO history, String jwtToken) {
+    public CompletableFuture<Void> saveHistoryAsync(GameHistoryDTO history, String jwtToken) {
         try {
             HistoryRequestDTO payload = new HistoryRequestDTO(
                     history.getScore(),
@@ -39,21 +40,21 @@ public class HistoryService {
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
 
-            HttpResponse<String> response =
-                    client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() == 201 || response.statusCode() == 200) {
-                System.out.println("Historie erfolgreich gespeichert");
-            } else {
-                System.err.println("Fehler beim Speichern: " + response.body());
-            }
-
+            return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenAccept(response -> {
+                        int code = response.statusCode();
+                        if (code != 200 && code != 201) {
+                            throw new RuntimeException("Fehler beim Speichern: " + code + " / " + response.body());
+                        }
+                    });
         } catch (Exception e) {
-            e.printStackTrace();
+            CompletableFuture<Void> failed = new CompletableFuture<>();
+            failed.completeExceptionally(e);
+            return failed;
         }
     }
 
-    public List<GameHistoryDTO> loadHistory(String jwtToken) {
+    public CompletableFuture<List<GameHistoryDTO>> loadHistoryAsync(String jwtToken) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(BASE_URL))
@@ -61,16 +62,24 @@ public class HistoryService {
                     .GET()
                     .build();
 
-            HttpResponse<String> response =
-                    client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            return Arrays.asList(
-                    mapper.readValue(response.body(), GameHistoryDTO[].class)
-            );
-
+            return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(response -> {
+                        if (response.statusCode() != 200) {
+                            throw new RuntimeException("Historie laden fehlgeschlagen: " + response.statusCode());
+                        }
+                        return response.body();
+                    })
+                    .thenApply(body -> {
+                        try {
+                            return Arrays.asList(mapper.readValue(body, GameHistoryDTO[].class));
+                        } catch (Exception e) {
+                            throw new RuntimeException("History-Response konnte nicht geparst werden", e);
+                        }
+                    });
         } catch (Exception e) {
-            e.printStackTrace();
-            return List.of();
+            CompletableFuture<List<GameHistoryDTO>> failed = new CompletableFuture<>();
+            failed.completeExceptionally(e);
+            return failed;
         }
     }
 
