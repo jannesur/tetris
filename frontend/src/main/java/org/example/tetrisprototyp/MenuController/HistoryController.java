@@ -65,7 +65,7 @@ public class HistoryController {
                 + " | Best-Level: " + bestLevel;
     }
 
-    
+
     @FXML
     private void backToMenu(ActionEvent event) {
         System.out.println("Zurück zum Hauptmenü...");
