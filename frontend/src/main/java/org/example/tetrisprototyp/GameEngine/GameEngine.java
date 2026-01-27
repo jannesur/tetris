@@ -15,7 +15,7 @@ import java.util.Random;
 
 /**
  * Game Engine enthält die Hauptschleife des Spiels und implementiert die Spielmechanik und ihre Komponenten.
- * Observable, welches die zwei Observer Soundmanager und HistoryManager informiert.
+ * Observable, welches die drei Observer GameController, Soundmanager und HistoryManager informiert.
  */
 public class GameEngine implements Observable {
 
@@ -60,10 +60,8 @@ public class GameEngine implements Observable {
 
 
     public GameEngine(Canvas canvas, int difficulty) {
-        //this.canvas = new Canvas(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
-        //this.polyominoFactory = new TetrominoFactory();
         this.collisionManager = new CollisionManager(WIDTH, HEIGHT);
         this.boardRenderer = new BoardRenderer(gc, TILE_SIZE, WIDTH, HEIGHT);
         this.difficulty = difficulty;

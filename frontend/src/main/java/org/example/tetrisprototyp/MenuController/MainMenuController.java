@@ -17,14 +17,7 @@ public class MainMenuController {
     //Wechsel zur Auswahl des Schwierigkeitsgrades
     @FXML
     private void startGame(ActionEvent event) {
-        System.out.println("Spiel starten!");  // Hier später zur Spielszene wechseln
-        // Beispiel: Deaktiviere Buttons, während das Spiel lädt
-        //startButton.setDisable(true);
-        //exitButton.setDisable(true);
-
-        //GameEngineStarter gameEngineStarter = new GameEngineStarter();
-        //gameEngineStarter.startGame(event);
-        //ControllerUtils.loadView(event, "GameView.fxml", "TETRIS - Historie");
+        System.out.println("Spiel starten!");
         ControllerUtils.loadView(event, "DifficultyView.fxml", "Tetris");
     }
 
@@ -46,9 +39,6 @@ public class MainMenuController {
 
         ControllerUtils.loadView(event, "WelcomeView.fxml", "Tetris");
 
-        // Falls du mehrere Stages hast oder sicher gehen willst:
-        // Platform.exit();
-        // System.exit(0);
     }
 
     @FXML
@@ -67,8 +57,4 @@ public class MainMenuController {
         exitButton.setDisable(disabled);
     }
 
-    // Falls du nach dem Spiel zurückkommst und Buttons wieder aktivieren willst:
-    public void enableButtons() {
-        setButtonsDisabled(false);
-    }
 }

@@ -4,9 +4,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.Glow;
 import javafx.scene.paint.Color;
 
+// Grundbaustein jedes Polyomino
 public class Block implements Shape {
 
-    private int x; // Position in Grid-Koordinaten
+    private int x;
     private int y;
     private final Color color;
 
@@ -18,13 +19,7 @@ public class Block implements Shape {
 
     @Override
     public void render(GraphicsContext gc, int tileSize) {
-        /*
-        gc.setFill(color);
-        gc.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
-        gc.setStroke(Color.BLACK);
-        gc.strokeRect(x * tileSize, y * tileSize, tileSize, tileSize);
 
-         */
         double x = this.x * tileSize;
         double y = this.y * tileSize;
         double s = tileSize;

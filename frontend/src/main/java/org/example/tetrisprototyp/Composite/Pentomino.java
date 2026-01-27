@@ -44,8 +44,6 @@ public class Pentomino extends Polyomino {
         addBlock(new Block(6, 2, Color.BLUE));
         addBlock(new Block(5, 2, Color.BLUE));
         addBlock(new Block(4, 2, Color.BLUE));
-
-        // Pivot: oberer Block der vertikalen Linie
         setPivot(getBlocks().get(0));
     }
 

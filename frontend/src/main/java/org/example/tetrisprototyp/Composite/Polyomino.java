@@ -7,7 +7,6 @@ import java.util.List;
 
 public abstract class Polyomino implements Shape {
 
-    //private int blockCount;
     private List<Block> blocks =  new ArrayList<>();
     private String type;
     private Block pivot;
@@ -46,7 +45,6 @@ public abstract class Polyomino implements Shape {
 
             // Rotation anwenden
             int newRelX = -relY;
-            //int newRelY = relX;
 
             // Neue Position berechnen
             block.setX(pivot.getX() + newRelX);
@@ -65,7 +63,6 @@ public abstract class Polyomino implements Shape {
             int relY = block.getY() - pivot.getY();
 
             // Rotation anwenden
-            //int newRelX = relY;
             int newRelY = -relX;
 
             block.setX(pivot.getX() + relY);

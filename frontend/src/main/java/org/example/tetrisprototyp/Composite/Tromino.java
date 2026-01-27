@@ -23,7 +23,7 @@ public class Tromino extends Polyomino {
         addBlock(new Block(5, 0, Color.CYAN));
         addBlock(new Block(6, 0, Color.CYAN));
 
-        // Pivot in der Mitte
+        // Pivot: Mitte
         setPivot(getBlocks().get(1));
     }
 
@@ -32,7 +32,7 @@ public class Tromino extends Polyomino {
         addBlock(new Block(5, 0, Color.ORANGE));
         addBlock(new Block(4, 1, Color.ORANGE));
 
-        // Pivot: oberer linker Block (stabile Rotation)
+        // Pivot: oberer linker Block
         setPivot(getBlocks().get(0));
     }
 
@@ -41,7 +41,7 @@ public class Tromino extends Polyomino {
         addBlock(new Block(4, 0, Color.ORANGE));
         addBlock(new Block(5, 1, Color.ORANGE));
 
-        // Pivot oben rechts (symmetrisch zur normalen L-Version)
+        // Pivot: oben rechts
         setPivot(getBlocks().get(0));
     }
 

@@ -10,7 +10,7 @@ public class LoginRequestDTO {
         this.password = password;
     }
 
-    // Getter & Setter (für Jackson)
+    // Getter & Setter
 
     public String getUsername() {
         return username;
