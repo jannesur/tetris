@@ -34,25 +34,12 @@ public class PlayerController {
     public Player getPlayerById(@PathVariable Long id) {
         return this.playerService.getPlayerById(id);
     }
-    
 
 	@PostMapping
 	public Player createPlayer(@RequestBody Player player) {
 		return this.playerService.createPlayer(player);
 	}
 
-    /* 
-     @PostMapping
-    public Player login(@RequestBody Player player) {
-        Username username = new Username(player.username);
-        Password password = new Password(dto.password);
-        return playerService.loginPlayer(username, password);
-    }
-    */
-
-    //Patch für Player updaten
-	//@PatchMapping("/{id}")
-	
 
 	@DeleteMapping("/{id}")
 	public void deletePlayer(@PathVariable Long id) { 
