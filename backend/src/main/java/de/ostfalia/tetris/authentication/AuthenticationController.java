@@ -20,16 +20,18 @@ public class AuthenticationController {
 
     private final PlayerService playerService;
     private final JwtService jwtService;
-    private final JwtLogoutService jwtLogoutService;
+
 
     public AuthenticationController(PlayerService playerService,
-                                    JwtService jwtService,
-                                    JwtLogoutService jwtLogoutService) {
+                                    JwtService jwtService) {
         this.playerService = playerService;
         this.jwtService = jwtService;
-        this.jwtLogoutService = jwtLogoutService;
+
     }
 
+
+    // Authentifiziert einen Benutzer, prüft das Passwort und erzeugt ein JWT
+    // Gibt bei Erfolg Token und Basis-Userdaten zurück, sonst HTTP 401
     @PostMapping("/token")
     public ResponseEntity<?> login(@RequestBody LoginRequest login) {
         Player player = playerService.loadUserByUsername(login.getUsername());
@@ -45,28 +47,5 @@ public class AuthenticationController {
                 "playerId", player.getId(),
                 "username", player.getUsername()
         ));
-    }
-
-
-    @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@RequestBody LogoutRequest request) {
-
-        if (request == null || request.getToken() == null || request.getToken().isBlank()) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        String token = request.getToken().trim();
-        if (token.startsWith("Bearer ")) {
-            token = token.substring(7).trim();
-        }
-
-        if (!jwtService.isValid(token)) {
-            return ResponseEntity.status(401).build();
-        }
-
-        Instant expiresAt = jwtService.extractExpiration(token);
-        jwtLogoutService.logout(token, expiresAt);
-
-        return ResponseEntity.noContent().build();
     }
 }

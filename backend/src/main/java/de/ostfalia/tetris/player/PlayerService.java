@@ -12,16 +12,12 @@ import jakarta.persistence.EntityNotFoundException;
 public class PlayerService {
 
     private final PlayerRepository playerRepository;
-    private final PasswordEncoder passwordEncoder; // 🔐 hinzugefügt
+    private final PasswordEncoder passwordEncoder;
 
     public PlayerService(PlayerRepository playerRepository, PasswordEncoder passwordEncoder) {
         this.playerRepository = playerRepository;
-        this.passwordEncoder = passwordEncoder; // 🔐 hinzugefügt
+        this.passwordEncoder = passwordEncoder;
     }
-
-    // ---------------------------------------------------------
-    // 🔵 Dein bestehender Code (UNVERÄNDERT)
-    // ---------------------------------------------------------
 
     public List<Player> getAllPlayers() {
         return this.playerRepository.findAll();
@@ -41,24 +37,6 @@ public class PlayerService {
     return playerRepository.save(player);
 }
 
-
-
-
-    //Patch für Player updaten
-    /* 
-     public User login(String email, String rawPassword) {
-        Email emailVO = new Email(email);
-
-        User user = userRepository.findByEmail(emailVO)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
-
-        if (!user.getPassword().matches(rawPassword)) {
-            throw new EntityNotFoundException("Invalid password");
-        }
-
-        return user;
-    }
-    */
 
     public void deletePlayer(Long id) {
         this.playerRepository.deleteById(id);
@@ -85,6 +63,6 @@ public class PlayerService {
             throw new EntityNotFoundException("Invalid password");
         }
 
-        return player; // AuthController erzeugt daraus später das JWT
+        return player;
     }
 }

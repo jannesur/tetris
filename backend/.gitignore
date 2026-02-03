@@ -1,19 +1,13 @@
-# Created by https://www.toptal.com/developers/gitignore/api/java,react
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,react
 
 ### Java ###
 # Compiled class file
 *.class
-
 # Log file
 *.log
-
 # BlueJ files
 *.ctxt
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-
 # Package Files #
 *.jar
 *.war
@@ -22,29 +16,22 @@
 *.zip
 *.tar.gz
 *.rar
-
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
-
 ### react ###
 .idea
 .DS_*
 logs
 **/*.backup.*
 **/*.back.*
-
 node_modules
 bower_components
-
 *.sublime*
-
 psd
 thumb
 sketch
-
 # End of https://www.toptal.com/developers/gitignore/api/java,react
-
 ### Maven ###
 target/
 pom.xml.tag
@@ -57,3 +44,9 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+### Project ###
+.vscode/
+*.iml
+data/
+*.mv.db
+*.trace.db
