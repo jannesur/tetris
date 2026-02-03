@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class BeanConfig {
 
     @Bean
+    // Stellt einen PasswordEncoder als Spring Bean bereit
+    // Wird z.B. zum Hashen und Prüfen von Passwörtern verwendet
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }

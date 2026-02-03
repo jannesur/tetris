@@ -55,5 +55,5 @@ public class JwtService {
             .getBody()
             .getExpiration()
             .toInstant();
-}
+    }
 }

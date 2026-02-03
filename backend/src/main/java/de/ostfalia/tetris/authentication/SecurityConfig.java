@@ -17,6 +17,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    // Definiert Security-Regeln und bindet den JWT-Filter ein
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http

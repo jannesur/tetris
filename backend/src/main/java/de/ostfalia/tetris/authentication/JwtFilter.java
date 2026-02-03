@@ -19,17 +19,15 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final PlayerService playerService;
-    private final JwtLogoutService jwtLogoutService;
 
     public JwtFilter(JwtService jwtService,
-                     PlayerService playerService,
-                     JwtLogoutService jwtLogoutService) {
+                     PlayerService playerService) {
         this.jwtService = jwtService;
         this.playerService = playerService;
-        this.jwtLogoutService = jwtLogoutService;
     }
 
     @Override
+    //Prüft eingehende Requests auf ein gültiges JWT und setzt bei Erfolg sden authentifizierten Benutzer im SecurityContext
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain)
@@ -56,11 +54,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (!jwtService.isValid(token)) {
             filterChain.doFilter(request, response);
-            return;
-        }
-
-        if (jwtLogoutService.isLoggedOut(token)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
